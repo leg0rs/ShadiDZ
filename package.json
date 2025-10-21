@@ -1,0 +1,26 @@
+{
+  "name": "@tealdeer/nextjs-frontend-template",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "web:dev": "turbo run dev --filter=@tealdeer/frontend",
+    "web:build": "turbo run build --filter=@tealdeer/frontend",
+    "web:fix": "turbo run fix --filter=@tealdeer/frontend",
+    "build": "turbo run build --continue",
+    "lint": "turbo run lint lint:ancillary --continue",
+    "lint:ancillary": "prettier --check .github *.*",
+    "test": "turbo run test --continue",
+    "fix": "turbo run fix fix:ancillary --continue",
+    "fix:frontend": "turbo run fix --continue --parallel",
+    "fix:ancillary": "prettier --write .github *.*",
+    "ci": "turbo run lint test --continue"
+  },
+  "packageManager": "pnpm@10.18.3",
+  "devDependencies": {
+    "@tealdeer/tooling-config": "workspace:*",
+    "eslint": "^9.38.0",
+    "prettier": "3.6.2",
+    "turbo": "^2.5.8"
+  },
+  "prettier": "@tealdeer/tooling-config/prettier.config.mts"
+}
