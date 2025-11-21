@@ -1,18 +1,18 @@
-import config from '@tealdeer/tooling-config/eslint/next.mts'
+import config from "@tealdeer/tooling-config/eslint/next.mts";
 
 const eslintConfig = [
   ...config,
   {
     settings: {
       react: {
-        version: 'detect'
-      }
+        version: "detect",
+      },
     },
     rules: {
-      'react/react-in-jsx-scope': 'off',
-      'react/jsx-uses-react': 'off'
-    }
-  }
-]
+      "react/react-in-jsx-scope": "off",
+      "react/jsx-uses-react": "off",
+    },
+  },
+];
 
-export default eslintConfig
+export default eslintConfig;

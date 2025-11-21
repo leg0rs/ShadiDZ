@@ -24,7 +24,7 @@ node_modules
 !.vscode/extensions.json
 
 # IDE - IntelliJ
-.idea/*
+.idea
 !.idea/code.iml
 !.idea/gradle.xml
 !.idea/icon.svg

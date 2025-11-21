@@ -39,6 +39,9 @@ importers:
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.1.15
+      '@tealdeer/tooling-config':
+        specifier: workspace:*
+        version: link:../../packages/tooling-config
       '@types/node':
         specifier: ^20
         version: 20.19.23

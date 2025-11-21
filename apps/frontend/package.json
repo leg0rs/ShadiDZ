@@ -8,11 +8,7 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
-    "lint:fix": "eslint --fix",
-    "test": "echo \"No tests specified\" && exit 0",
-    "test:watch": "echo \"No tests specified\" && exit 0",
-    "type-check": "tsc --noEmit",
-    "fix": "npm run lint:fix"
+    "fix": "eslint . --fix && prettier --write ."
   },
   "dependencies": {
     "babel-plugin-react-compiler": "^1.0.0",
@@ -21,6 +17,7 @@
     "react-dom": "19.1.0"
   },
   "devDependencies": {
+    "@tealdeer/tooling-config": "workspace:*",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

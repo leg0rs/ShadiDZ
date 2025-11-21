@@ -21,6 +21,5 @@
     "eslint": "^9.39.1",
     "prettier": "3.6.2",
     "turbo": "^2.6.1"
-  },
-  "prettier": "@tealdeer/tooling-config/prettier.config.mts"
+  }
 }
