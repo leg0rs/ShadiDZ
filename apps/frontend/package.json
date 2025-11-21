@@ -7,7 +7,12 @@
     "prebuild": "next telemetry disable",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "test": "echo \"No tests specified\" && exit 0",
+    "test:watch": "echo \"No tests specified\" && exit 0",
+    "type-check": "tsc --noEmit",
+    "fix": "npm run lint:fix"
   },
   "dependencies": {
     "babel-plugin-react-compiler": "^1.0.0",

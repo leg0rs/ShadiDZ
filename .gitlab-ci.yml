@@ -1,0 +1,221 @@
+stages:
+  - prepare
+  - security
+  - test
+  - build
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: "/certs"
+  DOCKER_BUILDKIT: 1
+  BUILDX_NO_DEFAULT_ATTESTATIONS: 1
+  REGISTRY: $CI_REGISTRY
+  IMAGE_NAME: $CI_REGISTRY_IMAGE/frontend
+  PNPM_CACHE_FOLDER: .pnpm-store
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .pnpm-store/
+    - node_modules/
+    - apps/*/node_modules/
+    - packages/*/node_modules/
+
+.pnpm_setup: &pnpm_setup
+  - corepack enable
+  - pnpm config set store-dir $PNPM_CACHE_FOLDER
+  - pnpm install --frozen-lockfile
+
+.only_mr_to_dev: &only_mr_to_dev
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "dev"
+    - if: $CI_COMMIT_BRANCH == "dev"
+
+prepare:dependencies:
+  stage: prepare
+  image: node:24-alpine
+  before_script:
+    - *pnpm_setup
+  script:
+    - echo "Dependencies installed and cached"
+  artifacts:
+    expire_in: 24 hours
+    paths:
+      - node_modules/
+      - .pnpm-store/
+  <<: *only_mr_to_dev
+
+security:audit:
+  stage: security
+  image: node:24-alpine
+  needs: ["prepare:dependencies"]
+  before_script:
+    - *pnpm_setup
+  script:
+    - pnpm audit --audit-level moderate
+  allow_failure: true
+  <<: *only_mr_to_dev
+
+security:secrets:
+  stage: security
+  image: alpine:latest
+  script:
+    - |
+      echo "Scanning for hardcoded secrets..."
+      if find . -name "*.ts" -o -name "*.tsx" -o -name "*.js" -o -name "*.jsx" | \
+        xargs grep -l "password\|secret\|key.*=" | head -5; then
+        echo "WARNING: Potential secrets found"
+        exit 1
+      fi
+      echo "No hardcoded secrets detected"
+  allow_failure: true
+  <<: *only_mr_to_dev
+
+security:dockerfile:
+  stage: security
+  image: hadolint/hadolint:latest-alpine
+  script:
+    - hadolint apps/frontend/Dockerfile
+  allow_failure: true
+  <<: *only_mr_to_dev
+
+lint:eslint:
+  stage: test
+  image: node:24-alpine
+  needs: ["prepare:dependencies"]
+  before_script:
+    - *pnpm_setup
+  script:
+    - pnpm run lint
+  artifacts:
+    when: always
+    reports:
+      junit: eslint-report.xml
+    expire_in: 1 week
+  <<: *only_mr_to_dev
+
+test:unit:
+  stage: test
+  image: node:24-alpine
+  needs: ["prepare:dependencies"]
+  before_script:
+    - *pnpm_setup
+  script:
+    - pnpm run test
+    - echo "Unit tests completed"
+  <<: *only_mr_to_dev
+
+test:build:
+  stage: test
+  image: node:24-alpine
+  needs: ["prepare:dependencies"]
+  before_script:
+    - *pnpm_setup
+  script:
+    - pnpm run build
+    - echo "Build completed successfully"
+    - ls -la apps/frontend/out/
+  <<: *only_mr_to_dev
+
+build:docker:mr:
+  stage: build
+  image: docker:27-dind
+  services:
+    - docker:27-dind
+  needs: ["test:build", "lint:eslint", "lint:prettier"]
+  variables:
+    DOCKER_HOST: tcp://docker:2376
+    DOCKER_TLS_VERIFY: 1
+    DOCKERFILE_PATH: apps/frontend/Dockerfile
+    CONTEXT_DIR: .
+  before_script:
+    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+    - docker buildx create --use --driver docker-container
+  script:
+    - |
+      docker buildx build \
+        --platform linux/amd64,linux/arm64 \
+        --cache-from type=registry,ref=$IMAGE_NAME:dev-cache \
+        --cache-to type=registry,ref=$IMAGE_NAME:mr-$CI_MERGE_REQUEST_IID-cache,mode=max \
+        --tag $IMAGE_NAME:mr-$CI_MERGE_REQUEST_IID \
+        --tag $IMAGE_NAME:$CI_COMMIT_SHA \
+        --push \
+        --file $DOCKERFILE_PATH \
+        $CONTEXT_DIR
+    - echo "✅ MR image built and pushed successfully:"
+    - echo "  🏷️  $IMAGE_NAME:mr-$CI_MERGE_REQUEST_IID"
+    - echo "  🏷️  $IMAGE_NAME:$CI_COMMIT_SHA"
+    - echo "  📦 Pull command: docker pull $IMAGE_NAME:mr-$CI_MERGE_REQUEST_IID"
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "dev"
+
+build:docker:dev:
+  stage: build
+  image: docker:27-dind
+  services:
+    - docker:27-dind
+  needs: ["test:build", "lint:eslint", "lint:prettier"]
+  variables:
+    DOCKER_HOST: tcp://docker:2376
+    DOCKER_TLS_VERIFY: 1
+    DOCKERFILE_PATH: apps/frontend/Dockerfile
+    CONTEXT_DIR: .
+  before_script:
+    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+    - docker buildx create --use --driver docker-container
+  script:
+    - |
+      docker buildx build \
+        --platform linux/amd64,linux/arm64 \
+        --cache-from type=registry,ref=$IMAGE_NAME:dev-cache \
+        --cache-to type=registry,ref=$IMAGE_NAME:dev-cache,mode=max \
+        --tag $IMAGE_NAME:latest \
+        --tag $IMAGE_NAME:dev \
+        --tag $IMAGE_NAME:dev-$CI_COMMIT_SHA \
+        --tag $IMAGE_NAME:$CI_COMMIT_SHA \
+        --push \
+        --file $DOCKERFILE_PATH \
+        $CONTEXT_DIR
+    - echo "✅ Dev image built and pushed successfully:"
+    - echo "  🏷️  $IMAGE_NAME:latest"
+    - echo "  🏷️  $IMAGE_NAME:dev"
+    - echo "  🏷️  $IMAGE_NAME:dev-$CI_COMMIT_SHA"
+    - echo "  🏷️  $IMAGE_NAME:$CI_COMMIT_SHA"
+    - echo "  📦 Pull command: docker pull $IMAGE_NAME:latest"
+  rules:
+    - if: $CI_COMMIT_BRANCH == "dev"
+
+security:container:mr:
+  stage: build
+  image: aquasec/trivy:latest
+  needs: ["build:docker:mr"]
+  script:
+    - trivy image --exit-code 1 --severity HIGH,CRITICAL $IMAGE_NAME:mr-$CI_MERGE_REQUEST_IID
+  allow_failure: true
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "dev"
+
+security:container:dev:
+  stage: build
+  image: aquasec/trivy:latest
+  needs: ["build:docker:dev"]
+  script:
+    - trivy image --exit-code 1 --severity HIGH,CRITICAL $IMAGE_NAME:latest
+  allow_failure: true
+  rules:
+    - if: $CI_COMMIT_BRANCH == "dev"
+
+quality:metrics:
+  stage: build
+  image: node:24-alpine
+  needs: ["test:unit", "lint:eslint"]
+  before_script:
+    - *pnpm_setup
+  script:
+    - |
+      echo "Calculating code metrics..."
+      echo "Source files: $(find apps/frontend/src -name "*.ts" -o -name "*.tsx" | wc -l)"
+      echo "Total lines: $(find apps/frontend/src -name "*.ts" -o -name "*.tsx" | xargs wc -l | tail -1)"
+      echo "Functions: $(find apps/frontend/src -name "*.ts" -o -name "*.tsx" | xargs grep -c "function\|=>" | awk -F: '{sum+=$2} END {print sum}')"
+      echo "Quality check completed"
+  <<: *only_mr_to_dev
