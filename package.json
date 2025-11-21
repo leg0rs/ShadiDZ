@@ -18,9 +18,9 @@
   "packageManager": "pnpm@10.18.3",
   "devDependencies": {
     "@tealdeer/tooling-config": "workspace:*",
-    "eslint": "^9.38.0",
+    "eslint": "^9.39.1",
     "prettier": "3.6.2",
-    "turbo": "^2.5.8"
+    "turbo": "^2.6.1"
   },
   "prettier": "@tealdeer/tooling-config/prettier.config.mts"
 }

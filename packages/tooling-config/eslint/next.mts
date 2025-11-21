@@ -1,4 +1,5 @@
 import globals from "globals";
+import { globalIgnores } from "eslint/config";
 import pluginReact from "eslint-plugin-react";
 import js from "@eslint/js";
 import pluginNext from "@next/eslint-plugin-next";
@@ -29,7 +30,13 @@ export default [
       ...pluginNext.configs.recommended.rules
     }
   },
-
+  globalIgnores([
+    // Default ignores of eslint-config-next:
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts"
+  ]),
   {
     files: ["**/*.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"],
     plugins: { js },
