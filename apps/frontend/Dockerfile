@@ -1,41 +1,31 @@
 FROM node:24-alpine AS builder
 
+ENV DO_NOT_TRACK=1
 RUN corepack enable
 
 WORKDIR /app
 
 COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
-COPY apps/frontend/package.json ./apps/frontend/
+COPY apps/relatoris/package.json ./apps/relatoris/
+COPY packages/utils/package.json ./packages/utils/
 
 RUN pnpm install --frozen-lockfile
 
-COPY apps/frontend ./apps/frontend
+COPY . .
 
-WORKDIR /app/apps/frontend
-
-RUN pnpm build
+RUN pnpm web:build
 
 FROM nginx:alpine
 
-COPY --from=builder /app/apps/frontend/out /usr/share/nginx/html
+LABEL org.opencontainers.image.source=https://gitlab.prodcontest.com/team-26/frontend
+LABEL org.opencontainers.image.title=relatoris
+LABEL org.opencontainers.image.description="InvesTOPP frontend"
 
-RUN cat > /etc/nginx/conf.d/default.conf << 'EOF'
-server {
-    listen 3000;
-    server_name localhost;
-    root /usr/share/nginx/html;
-    index index.html;
 
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
+COPY --from=builder /app/apps/relatoris/out /usr/share/nginx/html
 
-    location ~* \.(js|css|png|jpg|jpeg|gif|ico|svg)$ {
-        expires 1y;
-        add_header Cache-Control "public, immutable";
-    }
-}
-EOF
+COPY assets/docker/nginx.conf /etc/nginx/conf.d/default.conf
+
 
 EXPOSE 3000
 
