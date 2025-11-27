@@ -1,0 +1,291 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "Consiliario",
+		"description": "InvesTOPP API",
+		"contact": {
+			"name": "Kirill Udaltsov",
+			"email": "me@udaltsovk.ru"
+		},
+		"license": {
+			"name": ""
+		},
+		"version": "0.1.0"
+	},
+	"servers": [
+		{
+			"url": "http://localhost:8080/v0",
+			"description": "Local instance (v0)"
+		}
+	],
+	"paths": {
+		"/hello": {
+			"get": {
+				"operationId": "hello",
+				"responses": {
+					"200": {
+						"description": "Java gnomes?",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/HelloResponse"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/analyze": {
+			"get": {
+				"operationId": "analyze",
+				"parameters": [
+					{
+						"name": "latitude",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "number",
+							"format": "float",
+							"maximum": 180,
+							"minimum": -180
+						},
+						"example": 55.76874
+					},
+					{
+						"name": "longitude",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "number",
+							"format": "float",
+							"maximum": 180,
+							"minimum": -180
+						},
+						"example": 37.588835
+					},
+					{
+						"name": "address",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"maxLength": 512,
+							"minLength": 1
+						},
+						"example": "Москва, улица Гашека, 7с1"
+					},
+					{
+						"name": "area",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32",
+							"maximum": 100,
+							"minimum": 0
+						},
+						"example": 25
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/JsonCompleteMarketplaceAnalysis"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"HelloResponse": {
+				"type": "object",
+				"description": "",
+				"required": ["message"],
+				"properties": {
+					"message": {
+						"type": "string",
+						"description": "",
+						"example": "https://шаховпобеда.рф"
+					}
+				}
+			},
+			"JsonCompleteMarketplaceAnalysis": {
+				"type": "object",
+				"description": "",
+				"required": ["predicted_price", "stats", "analyses"],
+				"properties": {
+					"predicted_price": {
+						"type": "number",
+						"format": "double",
+						"description": "",
+						"example": 3800000,
+						"minimum": 0
+					},
+					"stats": {
+						"$ref": "#/components/schemas/JsonStats"
+					},
+					"analyses": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/JsonMarketplaceAnalysis"
+						},
+						"description": ""
+					}
+				}
+			},
+			"JsonMarketplace": {
+				"type": "string",
+				"description": "",
+				"enum": ["Wildberries", "Ozon"]
+			},
+			"JsonMarketplaceAnalysis": {
+				"type": "object",
+				"description": "",
+				"required": ["marketplace", "can_open", "tariffs"],
+				"properties": {
+					"marketplace": {
+						"$ref": "#/components/schemas/JsonMarketplace"
+					},
+					"can_open": {
+						"type": "boolean",
+						"description": ""
+					},
+					"tariffs": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/JsonTariff"
+						},
+						"description": "",
+						"minItems": 0
+					},
+					"subsidy": {
+						"nullable": true,
+						"allOf": [
+							{
+								"$ref": "#/components/schemas/JsonSubsidy"
+							}
+						]
+					}
+				}
+			},
+			"JsonStats": {
+				"type": "object",
+				"description": "",
+				"required": [
+					"population",
+					"count_wb",
+					"count_ozon",
+					"count_pharmacies",
+					"count_metro",
+					"count_shops",
+					"count_commercials",
+					"count_platforms"
+				],
+				"properties": {
+					"population": {
+						"type": "integer",
+						"format": "int32",
+						"description": "",
+						"example": 3800000,
+						"minimum": 0
+					},
+					"count_wb": {
+						"type": "integer",
+						"format": "int32",
+						"description": "",
+						"example": 7,
+						"minimum": 0
+					},
+					"count_ozon": {
+						"type": "integer",
+						"format": "int32",
+						"description": "",
+						"example": 7,
+						"minimum": 0
+					},
+					"count_pharmacies": {
+						"type": "integer",
+						"format": "int32",
+						"description": "",
+						"example": 7,
+						"minimum": 0
+					},
+					"count_metro": {
+						"type": "integer",
+						"format": "int32",
+						"description": "",
+						"example": 7,
+						"minimum": 0
+					},
+					"count_shops": {
+						"type": "integer",
+						"format": "int32",
+						"description": "",
+						"example": 7,
+						"minimum": 0
+					},
+					"count_commercials": {
+						"type": "integer",
+						"format": "int32",
+						"description": "",
+						"example": 7,
+						"minimum": 0
+					},
+					"count_platforms": {
+						"type": "integer",
+						"format": "int32",
+						"description": "",
+						"example": 7,
+						"minimum": 0
+					}
+				}
+			},
+			"JsonSubsidy": {
+				"type": "object",
+				"description": "",
+				"required": ["subsidy_type", "subsidy_size"],
+				"properties": {
+					"subsidy_type": {
+						"$ref": "#/components/schemas/JsonSubsidyType"
+					},
+					"subsidy_size": {
+						"type": "integer",
+						"format": "int32",
+						"description": "",
+						"example": 3800000,
+						"minimum": 0
+					}
+				}
+			},
+			"JsonSubsidyType": {
+				"type": "string",
+				"description": "",
+				"enum": ["NORMAL", "GUARANTEED", "NONE"]
+			},
+			"JsonTariff": {
+				"type": "object",
+				"description": "",
+				"required": ["total_tariff"],
+				"properties": {
+					"total_tariff": {
+						"type": "number",
+						"format": "float",
+						"description": "",
+						"example": 7.0,
+						"maximum": 100,
+						"minimum": 0
+					}
+				}
+			}
+		}
+	},
+	"tags": []
+}
