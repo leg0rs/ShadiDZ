@@ -1,3 +1,8 @@
 {
-	"extends": "@tealdeer/tooling-config/typescript/next.json"
+	"extends": "@tealdeer/tooling-config/typescript/base.json",
+	"compilerOptions": {
+		"jsx": "react-jsx"
+	},
+	"include": ["src/**/*", "index.ts"],
+	"exclude": ["node_modules"]
 }

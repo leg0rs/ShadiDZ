@@ -1,26 +1,194 @@
 @import 'tailwindcss';
+@import 'tw-animate-css';
 
-:root {
-	--background: #ffffff;
-	--foreground: #171717;
-}
+@source "../../../../packages/ui/src/**/*.{ts,tsx}";
+@source "../**/*.{ts,tsx,js,jsx}";
+
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
-	--color-background: var(--background);
-	--color-foreground: var(--foreground);
+	/* Основные цвета */
+	--color-background: var(--bg-primary);
+	--color-foreground: var(--text-primary);
+
+	/* Шрифты */
 	--font-sans: var(--font-geist-sans);
 	--font-mono: var(--font-geist-mono);
+
+	/* Карточки */
+	--color-card: var(--card-bg);
+	--color-card-foreground: var(--card-text);
+
+	/* Всплывающие окна */
+	--color-popover: var(--popover-bg);
+	--color-popover-foreground: var(--popover-text);
+
+	/* Основные акцентные элементы */
+	--color-primary: var(--primary-bg);
+	--color-primary-foreground: var(--primary-text);
+
+	/* Второстепенные элементы */
+	--color-secondary: var(--secondary-bg);
+	--color-secondary-foreground: var(--secondary-text);
+
+	/* Приглушенные элементы */
+	--color-muted: var(--muted-bg);
+	--color-muted-foreground: var(--muted-text);
+
+	/* Акцентные элементы */
+	--color-accent: var(--accent-bg);
+	--color-accent-foreground: var(--accent-text);
+
+	/* Опасные действия */
+	--color-destructive: var(--error-color);
+
+	/* Границы и поля ввода */
+	--color-border: var(--border-color);
+	--color-input: var(--input-border);
+	--color-ring: var(--focus-ring);
+
+	/* Цвета графиков */
+	--color-chart-1: var(--chart-color-1);
+	--color-chart-2: var(--chart-color-2);
+	--color-chart-3: var(--chart-color-3);
+	--color-chart-4: var(--chart-color-4);
+	--color-chart-5: var(--chart-color-5);
+
+	--color-sidebar: var(--sidebar-bg);
+	--color-sidebar-foreground: var(--sidebar-text);
+	--color-sidebar-primary: var(--sidebar-primary-bg);
+	--color-sidebar-primary-foreground: var(--sidebar-primary-text);
+	--color-sidebar-accent: var(--sidebar-accent-bg);
+	--color-sidebar-accent-foreground: var(--sidebar-accent-text);
+	--color-sidebar-border: var(--sidebar-border);
+	--color-sidebar-ring: var(--sidebar-focus-ring);
+
+	/* Радиусы скругления */
+	--radius-sm: calc(var(--radius) - 4px);
+	--radius-md: calc(var(--radius) - 2px);
+	--radius-lg: var(--radius);
+	--radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-	:root {
-		--background: #0a0a0a;
-		--foreground: #ededed;
+:root {
+	/* Основные радиусы скругления */
+	--radius: 0.625rem;
+
+	/* Основные цвета фона и текста */
+	--bg-primary: oklch(1 0 0); /* Основной фон страницы (белый) */
+	--text-primary: oklch(0.145 0 0); /* Основной цвет текста (черный) */
+
+	/* Карточки (cards) */
+	--card-bg: oklch(1 0 0); /* Фон карточек (белый) */
+	--card-text: oklch(0.145 0 0); /* Текст на карточках (черный) */
+
+	/* Всплывающие окна (popover, dropdown) */
+	--popover-bg: oklch(1 0 0); /* Фон всплывающих окон (белый) */
+	--popover-text: oklch(0.145 0 0); /* Текст во всплывающих окнах (черный) */
+
+	/* Основные акцентные кнопки и элементы */
+	--primary-bg: oklch(0.205 0 0); /* Фон основных кнопок (темно-серый) */
+	--primary-text: oklch(0.985 0 0); /* Текст на основных кнопках (белый) */
+
+	/* Второстепенные кнопки и элементы */
+	--secondary-bg: oklch(0.97 0 0); /* Фон второстепенных кнопок (светло-серый) */
+	--secondary-text: oklch(0.205 0 0); /* Текст на второстепенных кнопках (темный) */
+
+	/* Приглушенные/неактивные элементы */
+	--muted-bg: oklch(0.97 0 0); /* Фон неактивных элементов (светло-серый) */
+	--muted-text: oklch(0.556 0 0); /* Текст неактивных элементов (серый) */
+
+	/* Акцентные элементы (выделение, hover) */
+	--accent-bg: oklch(0.97 0 0); /* Фон при наведении (светло-серый) */
+	--accent-text: oklch(0.205 0 0); /* Текст акцентных элементов (темный) */
+
+	/* Опасные действия (удаление, ошибки) */
+	--error-color: oklch(0.577 0.245 27.325); /* Цвет ошибок и удаления (красный) */
+
+	/* Границы и разделители */
+	--border-color: oklch(0.922 0 0); /* Цвет границ (светло-серый) */
+	--input-border: oklch(0.922 0 0); /* Цвет границ полей ввода (светло-серый) */
+	--focus-ring: oklch(0.708 0 0); /* Цвет обводки при фокусе (серый) */
+
+	/* Цвета для графиков и диаграмм */
+	--chart-color-1: oklch(0.646 0.222 41.116); /* Первый цвет графиков (оранжевый) */
+	--chart-color-2: oklch(0.6 0.118 184.704); /* Второй цвет графиков (голубой) */
+	--chart-color-3: oklch(0.398 0.07 227.392); /* Третий цвет графиков (синий) */
+	--chart-color-4: oklch(0.828 0.189 84.429); /* Четвертый цвет графиков (желто-зеленый) */
+	--chart-color-5: oklch(0.769 0.188 70.08); /* Пятый цвет графиков (желтый) */
+
+	/* Боковая панель (sidebar) */
+	--sidebar-bg: oklch(0.985 0 0); /* Фон боковой панели (почти белый) */
+	--sidebar-text: oklch(0.145 0 0); /* Текст боковой панели (черный) */
+	--sidebar-primary-bg: oklch(0.205 0 0); /* Фон активного пункта (темно-серый) */
+	--sidebar-primary-text: oklch(0.985 0 0); /* Текст активного пункта (белый) */
+	--sidebar-accent-bg: oklch(0.97 0 0); /* Фон при наведении (светло-серый) */
+	--sidebar-accent-text: oklch(0.205 0 0); /* Текст при наведении (темный) */
+	--sidebar-border: oklch(0.922 0 0); /* Граница боковой панели (светло-серый) */
+	--sidebar-focus-ring: oklch(0.708 0 0); /* Обводка при фокусе (серый) */
+}
+
+.dark {
+	/* Основные цвета фона и текста для темной темы */
+	--bg-primary: oklch(0.145 0 0); /* Основной фон страницы (почти черный) */
+	--text-primary: oklch(0.985 0 0); /* Основной цвет текста (белый) */
+
+	/* Карточки (cards) */
+	--card-bg: oklch(0.205 0 0); /* Фон карточек (темно-серый) */
+	--card-text: oklch(0.985 0 0); /* Текст на карточках (белый) */
+
+	/* Всплывающие окна (popover, dropdown) */
+	--popover-bg: oklch(0.205 0 0); /* Фон всплывающих окон (темно-серый) */
+	--popover-text: oklch(0.985 0 0); /* Текст во всплывающих окнах (белый) */
+
+	/* Основные акцентные кнопки и элементы */
+	--primary-bg: oklch(0.922 0 0); /* Фон основных кнопок (светло-серый) */
+	--primary-text: oklch(0.205 0 0); /* Текст на основных кнопках (темный) */
+
+	/* Второстепенные кнопки и элементы */
+	--secondary-bg: oklch(0.269 0 0); /* Фон второстепенных кнопок (темный серый) */
+	--secondary-text: oklch(0.985 0 0); /* Текст на второстепенных кнопках (белый) */
+
+	/* Приглушенные/неактивные элементы */
+	--muted-bg: oklch(0.269 0 0); /* Фон неактивных элементов (темный серый) */
+	--muted-text: oklch(0.708 0 0); /* Текст неактивных элементов (серый) */
+
+	/* Акцентные элементы (выделение, hover) */
+	--accent-bg: oklch(0.269 0 0); /* Фон при наведении (темный серый) */
+	--accent-text: oklch(0.985 0 0); /* Текст акцентных элементов (белый) */
+
+	/* Опасные действия (удаление, ошибки) */
+	--error-color: oklch(0.704 0.191 22.216); /* Цвет ошибок и удаления (красно-оранжевый) */
+
+	/* Границы и разделители */
+	--border-color: oklch(1 0 0 / 10%); /* Цвет границ с прозрачностью (белый 10%) */
+	--input-border: oklch(1 0 0 / 15%); /* Цвет границ полей ввода (белый 15%) */
+	--focus-ring: oklch(0.556 0 0); /* Цвет обводки при фокусе (средне-серый) */
+
+	/* Цвета для графиков и диаграмм */
+	--chart-color-1: oklch(0.488 0.243 264.376); /* Первый цвет графиков (синий) */
+	--chart-color-2: oklch(0.696 0.17 162.48); /* Второй цвет графиков (зеленый) */
+	--chart-color-3: oklch(0.769 0.188 70.08); /* Третий цвет графиков (желтый) */
+	--chart-color-4: oklch(0.627 0.265 303.9); /* Четвертый цвет графиков (пурпурный) */
+	--chart-color-5: oklch(0.645 0.246 16.439); /* Пятый цвет графиков (оранжевый) */
+
+	/* Боковая панель (sidebar) */
+	--sidebar-bg: oklch(0.205 0 0); /* Фон боковой панели (темно-серый) */
+	--sidebar-text: oklch(0.985 0 0); /* Текст боковой панели (белый) */
+	--sidebar-primary-bg: oklch(0.488 0.243 264.376); /* Фон активного пункта (синий) */
+	--sidebar-primary-text: oklch(0.985 0 0); /* Текст активного пункта (белый) */
+	--sidebar-accent-bg: oklch(0.269 0 0); /* Фон при наведении (темный серый) */
+	--sidebar-accent-text: oklch(0.985 0 0); /* Текст при наведении (белый) */
+	--sidebar-border: oklch(1 0 0 / 10%); /* Граница боковой панели (белый 10%) */
+	--sidebar-focus-ring: oklch(0.556 0 0); /* Обводка при фокусе (средне-серый) */
+}
+
+@layer base {
+	* {
+		@apply border-border outline-ring/50;
 	}
-}
-
-body {
-	background: var(--background);
-	color: var(--foreground);
-	font-family: Arial, Helvetica, sans-serif;
+	body {
+		background-color: var(--bg-primary);
+		color: var(--text-primary);
+	}
 }

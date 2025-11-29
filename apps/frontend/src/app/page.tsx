@@ -47,7 +47,7 @@ export default function Home() {
 				>
 					Click me
 				</button>
-				<p>{message?.message}</p>
+				<div>{message?.message}</div>
 			</div>
 
 			{/* Компонент для отображения данных о анализе */}
@@ -61,29 +61,29 @@ export default function Home() {
 				</button>
 				<div className="flex justify-betweens gap-10">
 					<div>
-						<p>Predicted price: {analyzeData?.predicted_price}</p>
+						<div>Predicted price: {analyzeData?.predicted_price}</div>
 					</div>
 					<div>
-						<p className="mb-2">Stats:</p>
-						<p>Population: {analyzeData?.stats.population}</p>
-						<p>Wb: {analyzeData?.stats.count_wb}</p>
-						<p>Ozon: {analyzeData?.stats.count_ozon}</p>
-						<p>Pharmacies: {analyzeData?.stats.count_pharmacies}</p>
-						<p>Metro: {analyzeData?.stats.count_metro}</p>
-						<p>Shops: {analyzeData?.stats.count_shops}</p>
-						<p>Commercials: {analyzeData?.stats.count_commercials}</p>
-						<p>Platforms: {analyzeData?.stats.count_platforms}</p>
+						<div className="mb-2">Stats:</div>
+						<div>Population: {analyzeData?.stats.population}</div>
+						<div>Wb: {analyzeData?.stats.count_wb}</div>
+						<div>Ozon: {analyzeData?.stats.count_ozon}</div>
+						<div>Pharmacies: {analyzeData?.stats.count_pharmacies}</div>
+						<div>Metro: {analyzeData?.stats.count_metro}</div>
+						<div>Shops: {analyzeData?.stats.count_shops}</div>
+						<div>Commercials: {analyzeData?.stats.count_commercials}</div>
+						<div>Platforms: {analyzeData?.stats.count_platforms}</div>
 					</div>
 					<div>
-						<p className="mb-2">Analyses:</p>
+						<div className="mb-2">Analyses:</div>
 						<div className="flex gap-12">
 							{analyzeData?.analyses.map((analysis) => (
 								<div key={analysis.marketplace}>
-									<p>Marketplace: {analysis.marketplace}</p>
-									<p className="mt-2 mb-2">Can open: {analysis.can_open}</p>
-									<p>Tariffs: {analysis.tariffs.length}</p>
-									<p>Subsidy: {analysis.subsidy?.subsidy_type}</p>
-									<p>Subsidy size: {analysis.subsidy?.subsidy_size}</p>
+									<div>Marketplace: {analysis.marketplace}</div>
+									<div className="mt-2 mb-2">Can open: {analysis.can_open}</div>
+									<div>Tariffs: {analysis.tariffs.length}</div>
+									<div>Subsidy: {analysis.subsidy?.subsidy_type}</div>
+									<div>Subsidy size: {analysis.subsidy?.subsidy_size}</div>
 								</div>
 							))}
 						</div>

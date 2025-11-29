@@ -20,7 +20,8 @@
 		],
 	"paths": {
 		"@/*": ["./src/*"],
-		"@packages/*": ["../../packages/*"]
+		"@packages/*": ["../../packages/*"],
+		"@shadcn/*": ["../../packages/ui/src/components/ui/*"]
 	}
 	},
 	"include": [
