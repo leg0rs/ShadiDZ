@@ -1,4 +1,5 @@
 import UserIcon from '@/components/profile/avatarUserbutton';
+import NameEditor from '@/components/profile/NameEditor';
 import GetSession from '@/utils/getsession';
 import getUserIcon from '@/utils/getUserIcon';
 
@@ -9,20 +10,19 @@ export default async function Profile() {
 		<div className="min-h-screen bg-background p-8">
 			<div className="max-w-4xl mx-auto">
 				<div className="flex justify-between items-center mb-8">
-					<h1 className="text-3xl font-bold">Панель управления</h1>
+					<h1 className="text-3xl font-bold bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+						Панель управления
+					</h1>
 				</div>
 
-				<div className="bg-background rounded-xl shadow-sm border border-border p-6 flex items-center max-sm:flex-wrap">
+				<div className="bg-card rounded-xl shadow-custom-lg border border-border p-8 flex items-center max-sm:flex-wrap hover-lift">
 					<UserIcon src={icon} />
-					<div className="w-full gap-4 flex flex-col flex-wrap pl-20">
-						<h2 className="text-xl font-semibold mb-4 ">Мой профиль</h2>
-						<div className="p-4 bg-secondary rounded-lg">
-							<p className="text-sm text-gray-500">Имя</p>
-							<p className="font-medium">{session?.user?.name}</p>
-						</div>
-						<div className="p-4 bg-secondary rounded-lg">
-							<p className="text-sm text-gray-500">Email</p>
-							<p className="font-medium">{session?.user?.email}</p>
+					<div className="w-full gap-6 flex flex-col flex-wrap pl-20 max-sm:pl-0 max-sm:mt-6">
+						<h2 className="text-2xl font-semibold">Мой профиль</h2>
+						<NameEditor currentName={session?.user?.name || ''} />
+						<div className="p-6 bg-secondary/50 rounded-xl border border-border/50 shadow-custom-sm transition-all hover:shadow-custom-md hover:border-border">
+							<p className="text-sm text-muted-foreground mb-2">Email</p>
+							<p className="font-semibold text-lg">{session?.user?.email}</p>
 						</div>
 					</div>
 				</div>

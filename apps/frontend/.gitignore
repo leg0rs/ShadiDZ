@@ -41,3 +41,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# uploads (user generated content)
+# Игнорируем все файлы в avatars, кроме .gitkeep
+public/uploads/avatars/*
+!public/uploads/avatars/.gitkeep

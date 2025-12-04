@@ -1,3 +1,4 @@
+import Footer from '@/components/footer/footer';
 import Header from '@/components/header/header';
 import '@/styles/globals.css';
 import { ThemeProvider } from '@shadcn/theme-provider';
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="ru en" suppressHydrationWarning>
-			<body className={` antialiased`}>
+			<body className="antialiased flex flex-col min-h-screen">
 				<ThemeProvider
 					attribute="class"
 					defaultTheme="system"
@@ -19,7 +20,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 					disableTransitionOnChange
 				>
 					<Header />
-					{children}
+					<main className="flex-1">{children}</main>
+					<Footer />
 				</ThemeProvider>
 			</body>
 		</html>

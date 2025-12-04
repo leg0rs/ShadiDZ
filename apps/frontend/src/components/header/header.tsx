@@ -8,10 +8,10 @@ const Header = async () => {
 	const session = await GetSession();
 	const icon = session ? await getUserIcon() : null;
 	return (
-		<header className="z-50 w-full border-b border-border bg-card/95 backdrop-blur supports-backdrop-filter:bg-card/60">
+		<header className="sticky top-0 z-50 w-full border-b border-border bg-header backdrop-blur supports-backdrop-filter:bg-header/95 shadow-custom-sm">
 			<div className="container mx-auto flex h-16 items-center justify-between px-4">
 				<div className="flex items-center gap-6">
-					<Link href="/" className="flex items-center gap-2">
+					<Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
 						<Image width={40} height={40} src="/TealDeer.png" alt="Логотип Команды" />
 						<span className="text-xl font-bold text-foreground">TealDeer</span>
 					</Link>

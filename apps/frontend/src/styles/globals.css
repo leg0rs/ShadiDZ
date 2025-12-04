@@ -19,6 +19,9 @@
 	--color-card: var(--card-bg);
 	--color-card-foreground: var(--card-text);
 
+	/* Header */
+	--color-header: var(--header-bg);
+
 	/* Всплывающие окна */
 	--color-popover: var(--popover-bg);
 	--color-popover-foreground: var(--popover-text);
@@ -64,6 +67,14 @@
 	--radius-md: calc(var(--radius) - 2px);
 	--radius-lg: var(--radius);
 	--radius-xl: calc(var(--radius) + 4px);
+
+	/* Тени для создания глубины */
+	--shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+	--shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+	--shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+	--shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+	--shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+	--shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
 }
 
 :root {
@@ -76,6 +87,7 @@
 	--bg-secondary: oklch(0.8141 0 0); /* Карточки (cards) */
 	--card-bg: oklch(1 0 0); /* Фон карточек (белый) */
 	--card-text: oklch(0.145 0 0); /* Текст на карточках (черный) */
+	--header-bg: oklch(0.98 0 0); /* Фон header (чуть темнее основного фона) */
 
 	/* Всплывающие окна (popover, dropdown) */
 	--popover-bg: oklch(1 0 0); /* Фон всплывающих окон (белый) */
@@ -127,6 +139,7 @@
 	/* Карточки (cards) */
 	--card-bg: oklch(0.205 0 0); /* Фон карточек (темно-серый) */
 	--card-text: oklch(0.985 0 0); /* Текст на карточках (белый) */
+	--header-bg: oklch(0.18 0 0); /* Фон header (чуть светлее основного фона) */
 
 	/* Всплывающие окна (popover, dropdown) */
 	--popover-bg: oklch(0.205 0 0); /* Фон всплывающих окон (темно-серый) */
@@ -168,19 +181,84 @@
 	--sidebar-accent-text: oklch(0.985 0 0); /* Текст при наведении (белый) */
 	--sidebar-border: oklch(1 0 0 / 10%); /* Граница боковой панели (белый 10%) */
 	--sidebar-focus-ring: oklch(0.556 0 0); /* Обводка при фокусе (средне-серый) */
+
+	/* Тени для темной темы */
+	--shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.2);
+	--shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+	--shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+	--shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.5), 0 8px 10px -6px rgb(0 0 0 / 0.5);
+	--shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.6);
+	--shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.2);
 }
 
 @layer base {
 	* {
 		@apply border-border outline-ring/50;
 	}
-	html,
-	body {
-		overflow: hidden;
+	html {
 		height: 100%;
 	}
 	body {
+		min-height: 100%;
 		background-color: var(--bg-primary);
 		color: var(--text-primary);
+	}
+}
+
+@layer utilities {
+	/* Утилиты для теней */
+	.shadow-custom-sm {
+		box-shadow: var(--shadow-sm);
+	}
+	.shadow-custom-md {
+		box-shadow: var(--shadow-md);
+	}
+	.shadow-custom-lg {
+		box-shadow: var(--shadow-lg);
+	}
+	.shadow-custom-xl {
+		box-shadow: var(--shadow-xl);
+	}
+	.shadow-custom-2xl {
+		box-shadow: var(--shadow-2xl);
+	}
+	.shadow-custom-inner {
+		box-shadow: var(--shadow-inner);
+	}
+
+	/* Эффект поднятия при наведении */
+	.hover-lift {
+		transition: all 0.2s ease-in-out;
+	}
+	.hover-lift:hover {
+		transform: translateY(-2px);
+		box-shadow: var(--shadow-lg);
+	}
+
+	/* Стеклянный эффект (glassmorphism) */
+	.glass {
+		background: rgba(255, 255, 255, 0.05);
+		backdrop-filter: blur(10px);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	/* Градиентные границы */
+	.gradient-border {
+		position: relative;
+		background: var(--color-background);
+		border-radius: var(--radius-lg);
+	}
+	.gradient-border::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: var(--radius-lg);
+		padding: 1px;
+		background: linear-gradient(135deg, oklch(0.7 0.15 250), oklch(0.7 0.15 320));
+		-webkit-mask:
+			linear-gradient(#fff 0 0) content-box,
+			linear-gradient(#fff 0 0);
+		-webkit-mask-composite: xor;
+		mask-composite: exclude;
 	}
 }

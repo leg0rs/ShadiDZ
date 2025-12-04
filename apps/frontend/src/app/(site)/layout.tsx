@@ -21,5 +21,5 @@ export default async function MainLayout({
 	if (!session) {
 		redirect('/login');
 	}
-	return <div>{children};</div>;
+	return <div>{children}</div>;
 }
