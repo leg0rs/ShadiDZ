@@ -21,7 +21,11 @@
 	"paths": {
 		"@/*": ["./src/*"],
 		"@packages/*": ["../../packages/*"],
-		"@shadcn/*": ["../../packages/ui/src/components/ui/*"]
+		"@shadcn/*": ["../../packages/ui/src/components/ui/*"],
+		"@tealdeer/auth": ["../../packages/auth/src/index.ts"],
+    "@tealdeer/auth/client": ["../../packages/auth/src/client.ts"],
+		"@tealdeer/databases": ["../../packages/databases/src/index.ts"],
+		"@ui/*": ["../../packages/ui/src/*"]
 	}
 	},
 	"include": [

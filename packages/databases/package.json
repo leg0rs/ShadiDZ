@@ -1,0 +1,29 @@
+{
+  "name": "@tealdeer/databases",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "lint": "eslint . && prettier --check .",
+    "fix": "eslint . --fix && prettier --write .",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio",
+    "db:generate": "prisma generate"
+  },
+  "packageManager": "pnpm@10.18.3",
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.0.1",
+    "@prisma/client": "7.0.1",
+    "dotenv": "^17.2.3",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "@tealdeer/tooling-config": "workspace:*",
+    "@types/node": "^22.19.1",
+    "@types/pg": "^8.15.6",
+    "prisma": "7.0.1",
+    "typescript": "^5.9.3"
+  }
+}

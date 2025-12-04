@@ -10,7 +10,7 @@
 	/* Основные цвета */
 	--color-background: var(--bg-primary);
 	--color-foreground: var(--text-primary);
-
+	--color-secondary: var(--bg-secondary);
 	/* Шрифты */
 	--font-sans: var(--font-geist-sans);
 	--font-mono: var(--font-geist-mono);
@@ -26,10 +26,6 @@
 	/* Основные акцентные элементы */
 	--color-primary: var(--primary-bg);
 	--color-primary-foreground: var(--primary-text);
-
-	/* Второстепенные элементы */
-	--color-secondary: var(--secondary-bg);
-	--color-secondary-foreground: var(--secondary-text);
 
 	/* Приглушенные элементы */
 	--color-muted: var(--muted-bg);
@@ -77,8 +73,7 @@
 	/* Основные цвета фона и текста */
 	--bg-primary: oklch(1 0 0); /* Основной фон страницы (белый) */
 	--text-primary: oklch(0.145 0 0); /* Основной цвет текста (черный) */
-
-	/* Карточки (cards) */
+	--bg-secondary: oklch(0.8141 0 0); /* Карточки (cards) */
 	--card-bg: oklch(1 0 0); /* Фон карточек (белый) */
 	--card-text: oklch(0.145 0 0); /* Текст на карточках (черный) */
 
@@ -89,10 +84,6 @@
 	/* Основные акцентные кнопки и элементы */
 	--primary-bg: oklch(0.205 0 0); /* Фон основных кнопок (темно-серый) */
 	--primary-text: oklch(0.985 0 0); /* Текст на основных кнопках (белый) */
-
-	/* Второстепенные кнопки и элементы */
-	--secondary-bg: oklch(0.97 0 0); /* Фон второстепенных кнопок (светло-серый) */
-	--secondary-text: oklch(0.205 0 0); /* Текст на второстепенных кнопках (темный) */
 
 	/* Приглушенные/неактивные элементы */
 	--muted-bg: oklch(0.97 0 0); /* Фон неактивных элементов (светло-серый) */
@@ -132,7 +123,7 @@
 	/* Основные цвета фона и текста для темной темы */
 	--bg-primary: oklch(0.145 0 0); /* Основной фон страницы (почти черный) */
 	--text-primary: oklch(0.985 0 0); /* Основной цвет текста (белый) */
-
+	--bg-secondary: oklch(0.2779 0 00);
 	/* Карточки (cards) */
 	--card-bg: oklch(0.205 0 0); /* Фон карточек (темно-серый) */
 	--card-text: oklch(0.985 0 0); /* Текст на карточках (белый) */
@@ -144,10 +135,6 @@
 	/* Основные акцентные кнопки и элементы */
 	--primary-bg: oklch(0.922 0 0); /* Фон основных кнопок (светло-серый) */
 	--primary-text: oklch(0.205 0 0); /* Текст на основных кнопках (темный) */
-
-	/* Второстепенные кнопки и элементы */
-	--secondary-bg: oklch(0.269 0 0); /* Фон второстепенных кнопок (темный серый) */
-	--secondary-text: oklch(0.985 0 0); /* Текст на второстепенных кнопках (белый) */
 
 	/* Приглушенные/неактивные элементы */
 	--muted-bg: oklch(0.269 0 0); /* Фон неактивных элементов (темный серый) */
@@ -186,6 +173,11 @@
 @layer base {
 	* {
 		@apply border-border outline-ring/50;
+	}
+	html,
+	body {
+		overflow: hidden;
+		height: 100%;
 	}
 	body {
 		background-color: var(--bg-primary);
