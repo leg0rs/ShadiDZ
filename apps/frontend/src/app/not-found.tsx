@@ -1,5 +1,7 @@
+import { Button } from '@shadcn/button';
+import { ArrowLeftIcon } from 'lucide-react';
 import Image from 'next/image';
-
+import Link from 'next/link';
 const NotFound = () => {
 	return (
 		<div className="relative h-svh bg-background overflow-hidden text-foreground text-[18px]">
@@ -17,8 +19,18 @@ const NotFound = () => {
 					/>
 				</div>
 
-				<div className="text-white absolute bottom-24 sm:bottom-32 md:bottom-40 left-1/2 -translate-x-1/2 font-black text-5xl sm:text-7xl md:text-9xl">
+				<div className="flex flex-col items-center gap-4 text-white absolute bottom-24 sm:bottom-32 md:bottom-40 left-1/2 -translate-x-1/2 font-black text-5xl sm:text-7xl md:text-9xl">
 					<h1>OKAK</h1>
+					<Link href="/">
+						<Button
+							variant="default"
+							size="lg"
+							className="gap-2 text-base font-semibold bg-white text-black hover:bg-gray-200"
+						>
+							<ArrowLeftIcon className="w-5 h-5" />
+							Вернуться на главную
+						</Button>
+					</Link>
 				</div>
 			</div>
 		</div>
