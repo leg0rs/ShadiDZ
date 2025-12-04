@@ -49,8 +49,8 @@ Thumbs.db
 
 # frontend generated files
 apps/frontend/src/generated
-apps/frontend/public/uploads/avatars
-
+public/uploads/avatars/*
+!public/uploads/avatars/.gitkeep
 .turbo
 target
 generated
