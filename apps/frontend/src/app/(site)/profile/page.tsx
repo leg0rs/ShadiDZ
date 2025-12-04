@@ -6,6 +6,7 @@ import getUserIcon from '@/utils/getUserIcon';
 export default async function Profile() {
 	const session = await GetSession();
 	const icon = session ? await getUserIcon() : null;
+	
 	return (
 		<div className="min-h-screen bg-background p-8">
 			<div className="max-w-4xl mx-auto">
@@ -15,10 +16,10 @@ export default async function Profile() {
 					</h1>
 				</div>
 
-				<div className="bg-card rounded-xl shadow-custom-lg border border-border p-8 flex items-center max-sm:flex-wrap hover-lift">
+				<div className="bg-card rounded-xl shadow-custom-lg border border-border p-8 flex flex-col md:flex-row items-center hover-lift">
 					<UserIcon src={icon} />
-					<div className="w-full gap-6 flex flex-col flex-wrap pl-20 max-sm:pl-0 max-sm:mt-6">
-						<h2 className="text-2xl font-semibold">Мой профиль</h2>
+					<div className="w-full gap-6 flex flex-col flex-wrap md:pl-20 mt-6 md:mt-0">
+						<h2 className="text-2xl font-semibold text-center md:text-left">Мой профиль</h2>
 						<NameEditor currentName={session?.user?.name || ''} />
 						<div className="p-6 bg-secondary/50 rounded-xl border border-border/50 shadow-custom-sm transition-all hover:shadow-custom-md hover:border-border">
 							<p className="text-sm text-muted-foreground mb-2">Email</p>

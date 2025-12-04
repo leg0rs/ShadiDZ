@@ -264,9 +264,18 @@
 		-webkit-mask-composite: xor;
 		mask-composite: exclude;
 	}
+
+	.animation-delay-0 {
+		animation-delay: 0ms;
+	}
+	.animation-delay-200 {
+		animation-delay: 200ms;
+	}
+	.animation-delay-400 {
+		animation-delay: 400ms;
+	}
 }
 
-/* Кастомные keyframes для анимаций */
 @keyframes catAnim {
 	0% {
 		translate: 0 50%;

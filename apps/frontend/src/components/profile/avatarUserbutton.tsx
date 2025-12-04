@@ -24,7 +24,7 @@ export default function UserIcon({ src }: { src?: string | null }) {
 				disabled={isUploading}
 				className="relative rounded-full group disabled:opacity-50 disabled:cursor-not-allowed"
 			>
-				<BaseAvatar src={currentSrc} className="hidden w-40 h-40 m-0 md:block rounded-full" />
+				<BaseAvatar src={currentSrc} className="w-32 h-32 md:w-40 md:h-40 m-0 rounded-full" />
 				<AvatarOverlay isUploading={isUploading} />
 			</button>
 		</div>
