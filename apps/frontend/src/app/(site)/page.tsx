@@ -1,11 +1,12 @@
 'use client';
 
+import Card from '@/components/card';
 import Requset from '@/components/request';
 import { client } from '@packages/utils/src/api/client.gen';
 import { analyze, hello } from '@packages/utils/src/api/sdk.gen';
 import { AnalyzeResponse, HelloResponse } from '@packages/utils/src/api/types.gen';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@shadcn/table';
 import { useState } from 'react';
-
 client.setConfig({
 	// Устанавливаем базовый URL для запросов
 	baseURL: 'http://localhost:8080/v0',
@@ -56,7 +57,7 @@ export default function Home() {
 				</div>
 			</div>
 
-			<div className="space-y-6 mt-12">
+			<main className="space-y-6 mt-12">
 				<Requset text="Analyze" method="POST" />
 				<div className="flex flex-col justify-center items-center">
 					<button
@@ -65,90 +66,89 @@ export default function Home() {
 					>
 						Запустить анализ
 					</button>
-					<div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-6">
-						<div className="bg-card p-6 rounded-xl shadow-custom-lg border border-border hover-lift">
-							<h3 className="text-xl font-bold mb-4 text-primary">Прогноз цены</h3>
+					<div className="w-full grid grid-cols-1 lg:grid-cols-3 gap-7">
+						<Card title="Прогноз цены">
 							<div className="text-3xl font-bold text-primary">
 								{analyzeData?.predicted_price ? `₽${analyzeData.predicted_price}` : '—'}
 							</div>
-						</div>
-						<div className="bg-card p-6 rounded-xl shadow-custom-lg border border-border hover-lift">
-							<h3 className="text-xl font-bold mb-4 text-primary">Статистика</h3>
-							<div className="space-y-2">
-								<div className="flex justify-between">
-									<span className="text-sm text-muted-foreground">Население:</span>
-									<span className="font-semibold">{analyzeData?.stats.population || '—'}</span>
-								</div>
-								<div className="flex justify-between">
-									<span className="text-sm text-muted-foreground">Wildberries:</span>
-									<span className="font-semibold">{analyzeData?.stats.count_wb || '—'}</span>
-								</div>
-								<div className="flex justify-between">
-									<span className="text-sm text-muted-foreground">Ozon:</span>
-									<span className="font-semibold">{analyzeData?.stats.count_ozon || '—'}</span>
-								</div>
-								<div className="flex justify-between">
-									<span className="text-sm text-muted-foreground">Аптеки:</span>
-									<span className="font-semibold">
-										{analyzeData?.stats.count_pharmacies || '—'}
-									</span>
-								</div>
-								<div className="flex justify-between">
-									<span className="text-sm text-muted-foreground">Метро:</span>
-									<span className="font-semibold">{analyzeData?.stats.count_metro || '—'}</span>
-								</div>
-								<div className="flex justify-between">
-									<span className="text-sm text-muted-foreground">Магазины:</span>
-									<span className="font-semibold">{analyzeData?.stats.count_shops || '—'}</span>
-								</div>
-							</div>
-						</div>
-						<div className="bg-card p-6 rounded-xl shadow-custom-lg border border-border hover-lift">
-							<h3 className="text-xl font-bold mb-4 text-primary">Анализ маркетплейсов</h3>
-							<div className="space-y-4">
-								{analyzeData?.analyses.map((analysis) => (
+						</Card>
+
+						<Card title="Статистика">
+							<Table>
+								{' '}
+								# Начало таблицы
+								<TableHeader>
+									{' '}
+									# Заголовок таблицы
+									<TableRow className="flex justify-between w-full">
+										{' '}
+										# Строка заголовка
+										<TableHead className="w-1/2 border-r">Название</TableHead> # Заголовок ячейки
+										<TableHead className="w-1/2 text-center">Значение</TableHead> # Заголовок ячейки
+									</TableRow>
+								</TableHeader>
+								{[
+									{ label: 'Население', value: analyzeData?.stats.population },
+									{ label: 'Wildberries', value: analyzeData?.stats.count_wb },
+									{ label: 'Ozon', value: analyzeData?.stats.count_ozon },
+									{ label: 'Аптеки', value: analyzeData?.stats.count_pharmacies },
+									{ label: 'Метро', value: analyzeData?.stats.count_metro },
+									{ label: 'Магазины', value: analyzeData?.stats.count_shops },
+								].map((item) => (
+									<TableBody key={item.label}>
+										<TableRow className="flex justify-between w-full">
+											<TableCell className="w-1/2 border-r border-b">{item.label}</TableCell>
+											<TableCell className="w-1/2 text-center border-b">{item.value}</TableCell>
+										</TableRow>
+									</TableBody>
+								))}
+							</Table>
+						</Card>
+						<Card title="Анализ маркетплейсов">
+							{analyzeData?.analyses?.length ? (
+								analyzeData.analyses.map(({ marketplace, can_open, tariffs, subsidy }) => (
 									<div
-										key={analysis.marketplace}
+										key={marketplace}
 										className="p-4 bg-secondary/30 rounded-lg border border-border/50"
 									>
-										<div className="font-semibold mb-2">{analysis.marketplace}</div>
+										<div className="font-semibold mb-2">{marketplace}</div>
 										<div className="space-y-1 text-sm">
 											<div className="flex justify-between">
 												<span className="text-muted-foreground">Можно открыть:</span>
 												<span
 													className={
-														analysis.can_open
-															? 'text-green-500 font-semibold'
-															: 'text-red-500 font-semibold'
+														can_open ? 'text-green-500 font-semibold' : 'text-red-500 font-semibold'
 													}
 												>
-													{analysis.can_open ? 'Да' : 'Нет'}
+													{can_open ? 'Да' : 'Нет'}
 												</span>
 											</div>
 											<div className="flex justify-between">
 												<span className="text-muted-foreground">Тарифов:</span>
-												<span>{analysis.tariffs.length}</span>
+												<span>{tariffs.length}</span>
 											</div>
-											{analysis.subsidy && (
+											{subsidy && (
 												<>
 													<div className="flex justify-between">
 														<span className="text-muted-foreground">Субсидия:</span>
-														<span>{analysis.subsidy.subsidy_type}</span>
+														<span>{subsidy.subsidy_type}</span>
 													</div>
 													<div className="flex justify-between">
 														<span className="text-muted-foreground">Размер:</span>
-														<span>{analysis.subsidy.subsidy_size}</span>
+														<span>{subsidy.subsidy_size}</span>
 													</div>
 												</>
 											)}
 										</div>
 									</div>
-								)) || <p className="text-muted-foreground text-sm">Нет данных</p>}
-							</div>
-						</div>
+								))
+							) : (
+								<p className="text-muted-foreground text-sm">Нет данных</p>
+							)}
+						</Card>
 					</div>
 				</div>
-			</div>
+			</main>
 		</div>
 	);
 }
