@@ -10,7 +10,8 @@
 	},
 	"devDependencies": {
 		"@hey-api/openapi-ts": "0.88.0",
-		"@tealdeer/tooling-config": "workspace:*"
+		"@tealdeer/tooling-config": "workspace:*",
+		"@types/node": "^22.19.1"
 	},
 	"prettier": "@tealdeer/tooling-config/prettier.config.mts",
 	"dependencies": {

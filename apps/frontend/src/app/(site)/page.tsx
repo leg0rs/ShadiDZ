@@ -2,42 +2,27 @@
 
 import Card from '@/components/card';
 import Requset from '@/components/request';
-import { client } from '@packages/utils/src/api/client.gen';
-import { analyze, hello } from '@packages/utils/src/api/sdk.gen';
 import { AnalyzeResponse, HelloResponse } from '@packages/utils/src/api/types.gen';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@shadcn/table';
 import { useState } from 'react';
-client.setConfig({
-	// Устанавливаем базовый URL для запросов
-	baseURL: 'http://localhost:8080/v0',
-});
+// Импортируем экшены
+import { getAnalyzeAction, getHelloAction } from '../actions';
 
 export default function Home() {
-	// Интерфейсы автоматически генерируются из openapi.json
 	const [message, setMessage] = useState<HelloResponse>();
 	const [analyzeData, setAnalyzeData] = useState<AnalyzeResponse>();
 
-	// Функция для получения данных о анализе
 	const getAnalyze = async () => {
-		const { data: response } = await analyze({
-			query: {
-				latitude: 55.76874,
-				longitude: 37.588835,
-				address: 'Москва, улица Гашека, 7с1',
-				area: 25,
-			},
-		});
-		console.log('Data: ', response);
+		// Вызываем Server Action
+		const response = await getAnalyzeAction();
 		setAnalyzeData(response);
 	};
 
-	// Функция для получения данных о сообщении
 	const getMessage = async () => {
-		const { data: response } = await hello();
-		console.log('No data', response);
+		// Вызываем Server Action
+		const response = await getHelloAction();
 		setMessage(response);
 	};
-
 	// Возвращаем компонент
 	return (
 		<div className="container mx-auto p-8 space-y-8">
@@ -75,16 +60,10 @@ export default function Home() {
 
 						<Card title="Статистика">
 							<Table>
-								{' '}
-								# Начало таблицы
 								<TableHeader>
-									{' '}
-									# Заголовок таблицы
 									<TableRow className="flex justify-between w-full">
-										{' '}
-										# Строка заголовка
-										<TableHead className="w-1/2 border-r">Название</TableHead> # Заголовок ячейки
-										<TableHead className="w-1/2 text-center">Значение</TableHead> # Заголовок ячейки
+										<TableHead className="w-1/2 border-r">Название</TableHead>
+										<TableHead className="w-1/2 text-center">Значение</TableHead>
 									</TableRow>
 								</TableHeader>
 								{[

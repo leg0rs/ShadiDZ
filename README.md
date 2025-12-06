@@ -1,5 +1,4 @@
 # Frontend Template
-
 Современный Next.js 16 шаблон с аутентификацией, Prisma ORM и Tailwind CSS.
 
 ![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js&logoColor=white)

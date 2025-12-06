@@ -253,6 +253,9 @@ importers:
       '@tealdeer/tooling-config':
         specifier: workspace:*
         version: link:../tooling-config
+      '@types/node':
+        specifier: ^22.19.1
+        version: 22.19.1
 
 packages:
 
