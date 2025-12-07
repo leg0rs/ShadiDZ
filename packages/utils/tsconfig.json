@@ -1,0 +1,4 @@
+{
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+	"exclude": ["**/*.gen.ts", "**/*.config.ts"]
+}

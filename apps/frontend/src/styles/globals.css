@@ -1,0 +1,308 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@source "../../../../packages/ui/src/**/*.{ts,tsx}";
+@source "../**/*.{ts,tsx,js,jsx}";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+	/* Основные цвета */
+	--color-background: var(--bg-primary);
+	--color-foreground: var(--text-primary);
+	--color-secondary: var(--bg-secondary);
+	/* Шрифты */
+	--font-sans: var(--font-geist-sans);
+	--font-mono: var(--font-geist-mono);
+
+	/* Анимации */
+	--animate-catAnim: catAnim 1.5s ease forwards;
+	--animate-errorAnim: errorAnim 1.5s ease forwards;
+	/* Карточки */
+	--color-card: var(--card-bg);
+	--color-card-foreground: var(--card-text);
+
+	/* Header */
+	--color-header: var(--header-bg);
+
+	/* Всплывающие окна */
+	--color-popover: var(--popover-bg);
+	--color-popover-foreground: var(--popover-text);
+
+	/* Основные акцентные элементы */
+	--color-primary: var(--primary-bg);
+	--color-primary-foreground: var(--primary-text);
+
+	/* Приглушенные элементы */
+	--color-muted: var(--muted-bg);
+	--color-muted-foreground: var(--muted-text);
+
+	/* Акцентные элементы */
+	--color-accent: var(--accent-bg);
+	--color-accent-foreground: var(--accent-text);
+
+	/* Опасные действия */
+	--color-destructive: var(--error-color);
+
+	/* Границы и поля ввода */
+	--color-border: var(--border-color);
+	--color-input: var(--input-border);
+	--color-ring: var(--focus-ring);
+
+	/* Цвета графиков */
+	--color-chart-1: var(--chart-color-1);
+	--color-chart-2: var(--chart-color-2);
+	--color-chart-3: var(--chart-color-3);
+	--color-chart-4: var(--chart-color-4);
+	--color-chart-5: var(--chart-color-5);
+
+	--color-sidebar: var(--sidebar-bg);
+	--color-sidebar-foreground: var(--sidebar-text);
+	--color-sidebar-primary: var(--sidebar-primary-bg);
+	--color-sidebar-primary-foreground: var(--sidebar-primary-text);
+	--color-sidebar-accent: var(--sidebar-accent-bg);
+	--color-sidebar-accent-foreground: var(--sidebar-accent-text);
+	--color-sidebar-border: var(--sidebar-border);
+	--color-sidebar-ring: var(--sidebar-focus-ring);
+
+	/* Радиусы скругления */
+	--radius-sm: calc(var(--radius) - 4px);
+	--radius-md: calc(var(--radius) - 2px);
+	--radius-lg: var(--radius);
+	--radius-xl: calc(var(--radius) + 4px);
+
+	/* Тени для создания глубины */
+	--shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+	--shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+	--shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+	--shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+	--shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+	--shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+}
+
+:root {
+	/* Основные радиусы скругления */
+	--radius: 0.625rem;
+
+	/* Основные цвета фона и текста */
+	--bg-primary: oklch(1 0 0); /* Основной фон страницы (белый) */
+	--text-primary: oklch(0.145 0 0); /* Основной цвет текста (черный) */
+	--bg-secondary: oklch(0.8141 0 0); /* Карточки (cards) */
+	--card-bg: oklch(1 0 0); /* Фон карточек (белый) */
+	--card-text: oklch(0.145 0 0); /* Текст на карточках (черный) */
+	--header-bg: oklch(0.98 0 0); /* Фон header (чуть темнее основного фона) */
+
+	/* Всплывающие окна (popover, dropdown) */
+	--popover-bg: oklch(1 0 0); /* Фон всплывающих окон (белый) */
+	--popover-text: oklch(0.145 0 0); /* Текст во всплывающих окнах (черный) */
+
+	/* Основные акцентные кнопки и элементы */
+	--primary-bg: oklch(0.205 0 0); /* Фон основных кнопок (темно-серый) */
+	--primary-text: oklch(0.985 0 0); /* Текст на основных кнопках (белый) */
+
+	/* Приглушенные/неактивные элементы */
+	--muted-bg: oklch(0.97 0 0); /* Фон неактивных элементов (светло-серый) */
+	--muted-text: oklch(0.556 0 0); /* Текст неактивных элементов (серый) */
+
+	/* Акцентные элементы (выделение, hover) */
+	--accent-bg: oklch(0.97 0 0); /* Фон при наведении (светло-серый) */
+	--accent-text: oklch(0.205 0 0); /* Текст акцентных элементов (темный) */
+
+	/* Опасные действия (удаление, ошибки) */
+	--error-color: oklch(0.577 0.245 27.325); /* Цвет ошибок и удаления (красный) */
+
+	/* Границы и разделители */
+	--border-color: oklch(0.922 0 0); /* Цвет границ (светло-серый) */
+	--input-border: oklch(0.922 0 0); /* Цвет границ полей ввода (светло-серый) */
+	--focus-ring: oklch(0.708 0 0); /* Цвет обводки при фокусе (серый) */
+
+	/* Цвета для графиков и диаграмм */
+	--chart-color-1: oklch(0.646 0.222 41.116); /* Первый цвет графиков (оранжевый) */
+	--chart-color-2: oklch(0.6 0.118 184.704); /* Второй цвет графиков (голубой) */
+	--chart-color-3: oklch(0.398 0.07 227.392); /* Третий цвет графиков (синий) */
+	--chart-color-4: oklch(0.828 0.189 84.429); /* Четвертый цвет графиков (желто-зеленый) */
+	--chart-color-5: oklch(0.769 0.188 70.08); /* Пятый цвет графиков (желтый) */
+
+	/* Боковая панель (sidebar) */
+	--sidebar-bg: oklch(0.985 0 0); /* Фон боковой панели (почти белый) */
+	--sidebar-text: oklch(0.145 0 0); /* Текст боковой панели (черный) */
+	--sidebar-primary-bg: oklch(0.205 0 0); /* Фон активного пункта (темно-серый) */
+	--sidebar-primary-text: oklch(0.985 0 0); /* Текст активного пункта (белый) */
+	--sidebar-accent-bg: oklch(0.97 0 0); /* Фон при наведении (светло-серый) */
+	--sidebar-accent-text: oklch(0.205 0 0); /* Текст при наведении (темный) */
+	--sidebar-border: oklch(0.922 0 0); /* Граница боковой панели (светло-серый) */
+	--sidebar-focus-ring: oklch(0.708 0 0); /* Обводка при фокусе (серый) */
+}
+
+.dark {
+	/* Основные цвета фона и текста для темной темы */
+	--bg-primary: oklch(0.145 0 0); /* Основной фон страницы (почти черный) */
+	--text-primary: oklch(0.985 0 0); /* Основной цвет текста (белый) */
+	--bg-secondary: oklch(0.2779 0 00);
+	/* Карточки (cards) */
+	--card-bg: oklch(0.205 0 0); /* Фон карточек (темно-серый) */
+	--card-text: oklch(0.985 0 0); /* Текст на карточках (белый) */
+	--header-bg: oklch(0.18 0 0); /* Фон header (чуть светлее основного фона) */
+
+	/* Всплывающие окна (popover, dropdown) */
+	--popover-bg: oklch(0.205 0 0); /* Фон всплывающих окон (темно-серый) */
+	--popover-text: oklch(0.985 0 0); /* Текст во всплывающих окнах (белый) */
+
+	/* Основные акцентные кнопки и элементы */
+	--primary-bg: oklch(0.922 0 0); /* Фон основных кнопок (светло-серый) */
+	--primary-text: oklch(0.205 0 0); /* Текст на основных кнопках (темный) */
+
+	/* Приглушенные/неактивные элементы */
+	--muted-bg: oklch(0.269 0 0); /* Фон неактивных элементов (темный серый) */
+	--muted-text: oklch(0.708 0 0); /* Текст неактивных элементов (серый) */
+
+	/* Акцентные элементы (выделение, hover) */
+	--accent-bg: oklch(0.269 0 0); /* Фон при наведении (темный серый) */
+	--accent-text: oklch(0.985 0 0); /* Текст акцентных элементов (белый) */
+
+	/* Опасные действия (удаление, ошибки) */
+	--error-color: oklch(0.704 0.191 22.216); /* Цвет ошибок и удаления (красно-оранжевый) */
+
+	/* Границы и разделители */
+	--border-color: oklch(1 0 0 / 10%); /* Цвет границ с прозрачностью (белый 10%) */
+	--input-border: oklch(1 0 0 / 15%); /* Цвет границ полей ввода (белый 15%) */
+	--focus-ring: oklch(0.556 0 0); /* Цвет обводки при фокусе (средне-серый) */
+
+	/* Цвета для графиков и диаграмм */
+	--chart-color-1: oklch(0.488 0.243 264.376); /* Первый цвет графиков (синий) */
+	--chart-color-2: oklch(0.696 0.17 162.48); /* Второй цвет графиков (зеленый) */
+	--chart-color-3: oklch(0.769 0.188 70.08); /* Третий цвет графиков (желтый) */
+	--chart-color-4: oklch(0.627 0.265 303.9); /* Четвертый цвет графиков (пурпурный) */
+	--chart-color-5: oklch(0.645 0.246 16.439); /* Пятый цвет графиков (оранжевый) */
+
+	/* Боковая панель (sidebar) */
+	--sidebar-bg: oklch(0.205 0 0); /* Фон боковой панели (темно-серый) */
+	--sidebar-text: oklch(0.985 0 0); /* Текст боковой панели (белый) */
+	--sidebar-primary-bg: oklch(0.488 0.243 264.376); /* Фон активного пункта (синий) */
+	--sidebar-primary-text: oklch(0.985 0 0); /* Текст активного пункта (белый) */
+	--sidebar-accent-bg: oklch(0.269 0 0); /* Фон при наведении (темный серый) */
+	--sidebar-accent-text: oklch(0.985 0 0); /* Текст при наведении (белый) */
+	--sidebar-border: oklch(1 0 0 / 10%); /* Граница боковой панели (белый 10%) */
+	--sidebar-focus-ring: oklch(0.556 0 0); /* Обводка при фокусе (средне-серый) */
+
+	/* Тени для темной темы */
+	--shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.2);
+	--shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+	--shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+	--shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.5), 0 8px 10px -6px rgb(0 0 0 / 0.5);
+	--shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.6);
+	--shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.2);
+}
+
+@layer base {
+	* {
+		@apply border-border outline-ring/50;
+	}
+	html {
+		height: 100%;
+	}
+	body {
+		min-height: 100%;
+		background-color: var(--bg-primary);
+		color: var(--text-primary);
+	}
+}
+
+@layer utilities {
+	/* Утилиты для теней */
+	.shadow-custom-sm {
+		box-shadow: var(--shadow-sm);
+	}
+	.shadow-custom-md {
+		box-shadow: var(--shadow-md);
+	}
+	.shadow-custom-lg {
+		box-shadow: var(--shadow-lg);
+	}
+	.shadow-custom-xl {
+		box-shadow: var(--shadow-xl);
+	}
+	.shadow-custom-2xl {
+		box-shadow: var(--shadow-2xl);
+	}
+	.shadow-custom-inner {
+		box-shadow: var(--shadow-inner);
+	}
+
+	/* Эффект поднятия при наведении */
+	.hover-lift {
+		transition: all 0.2s ease-in-out;
+	}
+	.hover-lift:hover {
+		transform: translateY(-2px);
+		box-shadow: var(--shadow-lg);
+	}
+
+	/* Стеклянный эффект (glassmorphism) */
+	.glass {
+		background: rgba(255, 255, 255, 0.05);
+		backdrop-filter: blur(10px);
+		border: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	/* Градиентные границы */
+	.gradient-border {
+		position: relative;
+		background: var(--color-background);
+		border-radius: var(--radius-lg);
+	}
+	.gradient-border::before {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: var(--radius-lg);
+		padding: 1px;
+		background: linear-gradient(135deg, oklch(0.7 0.15 250), oklch(0.7 0.15 320));
+		-webkit-mask:
+			linear-gradient(#fff 0 0) content-box,
+			linear-gradient(#fff 0 0);
+		-webkit-mask-composite: xor;
+		mask-composite: exclude;
+	}
+
+	.animation-delay-0 {
+		animation-delay: 0ms;
+	}
+	.animation-delay-200 {
+		animation-delay: 200ms;
+	}
+	.animation-delay-400 {
+		animation-delay: 400ms;
+	}
+}
+
+@keyframes catAnim {
+	0% {
+		translate: 0 50%;
+	}
+	100% {
+		translate: 0 0;
+	}
+}
+
+@keyframes errorAnim {
+	100% {
+		transform: translate(-50%, -400px);
+	}
+}
+
+.error-404-position {
+	transform: translate(-50%, 300px);
+}
+
+@media (min-width: 640px) {
+	.error-404-position {
+		transform: translate(-50%, 500px);
+	}
+}
+
+@media (min-width: 768px) {
+	.error-404-position {
+		transform: translate(-50%, 800px);
+	}
+}
