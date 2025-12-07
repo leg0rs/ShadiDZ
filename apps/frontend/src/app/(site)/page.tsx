@@ -1,12 +1,13 @@
 'use client';
 
-import Card from '@/components/card';
-import Requset from '@/components/request';
 import { client } from '@packages/utils/src/api/client.gen';
 import { analyze, hello } from '@packages/utils/src/api/sdk.gen';
 import { AnalyzeResponse, HelloResponse } from '@packages/utils/src/api/types.gen';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@shadcn/table';
 import { useState } from 'react';
+
+import Card from '@/components/card';
+import Requset from '@/components/request';
 client.setConfig({
 	// Устанавливаем базовый URL для запросов
 	baseURL: 'http://localhost:8080/v0',

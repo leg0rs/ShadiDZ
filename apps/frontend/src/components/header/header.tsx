@@ -1,8 +1,10 @@
-import GetSession from '@/utils/getsession';
-import getUserIcon from '@/utils/getUserIcon';
 import { ModeToggle } from '@shadcn/mode-toggle';
 import Image from 'next/image';
 import Link from 'next/link';
+
+import GetSession from '@/utils/getsession';
+import getUserIcon from '@/utils/getUserIcon';
+
 import AvatarUser from './avatarUserdropdown';
 const Header = async () => {
 	const session = await GetSession();

@@ -1,9 +1,10 @@
 'use client';
 
-import { updateUserNameAction } from '@/actions/updateUserName';
 import { Button } from '@shadcn/button';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+
+import { updateUserNameAction } from '@/actions/updateUserName';
 
 export default function NameEditor({ currentName }: { currentName: string }) {
 	const [isEditing, setIsEditing] = useState(false);

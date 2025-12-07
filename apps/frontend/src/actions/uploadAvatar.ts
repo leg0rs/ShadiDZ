@@ -1,11 +1,12 @@
 'use server';
 
-import GetSession from '@/utils/getsession';
 import { prisma } from '@packages/databases';
 import { randomBytes } from 'crypto';
 import { existsSync } from 'fs';
 import { unlink, writeFile } from 'fs/promises';
 import path from 'path';
+
+import GetSession from '@/utils/getsession';
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];

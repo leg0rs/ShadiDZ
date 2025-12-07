@@ -1,6 +1,7 @@
 'use client';
 
 import { useAvatarUpload } from '@/hooks/useAvatarUpload';
+
 import BaseAvatar from '../BaseAvatar';
 import { AvatarOverlay } from './AvatarOverlay';
 
