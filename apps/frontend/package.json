@@ -1,5 +1,5 @@
 {
-	"name": "@tealdeer/frontend",
+	"name": "@legors/frontend",
 	"version": "0.1.0",
 	"private": true,
 	"scripts": {
@@ -12,10 +12,10 @@
 	},
 	"dependencies": {
 		"@prisma/client": "7.0.1",
-		"@tealdeer/auth": "workspace:*",
-		"@tealdeer/databases": "workspace:*",
-		"@tealdeer/ui": "workspace:*",
-		"@tealdeer/utils": "workspace:*",
+		"@legors/auth": "workspace:*",
+		"@legors/databases": "workspace:*",
+		"@legors/ui": "workspace:*",
+		"@legors/utils": "workspace:*",
 		"babel-plugin-react-compiler": "^1.0.0",
 		"better-auth": "^1.4.4",
 		"clsx": "^2.1.1",
@@ -29,7 +29,7 @@
 	},
 	"devDependencies": {
 		"@tailwindcss/postcss": "^4",
-		"@tealdeer/tooling-config": "workspace:*",
+		"@legors/tooling-config": "workspace:*",
 		"@types/node": "^20",
 		"@types/pg": "^8",
 		"@types/react": "^19",
@@ -38,5 +38,5 @@
 		"tailwindcss": "^4",
 		"typescript": "^5"
 	},
-	"prettier": "@tealdeer/tooling-config/prettier.config.mts"
+	"prettier": "@legors/tooling-config/prettier.config.mts"
 }

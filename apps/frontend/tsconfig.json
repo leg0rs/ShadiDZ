@@ -22,9 +22,9 @@
 		"@/*": ["./src/*"],
 		"@packages/*": ["../../packages/*"],
 		"@shadcn/*": ["../../packages/ui/src/components/ui/*"],
-		"@tealdeer/auth": ["../../packages/auth/src/index.ts"],
-    "@tealdeer/auth/client": ["../../packages/auth/src/client.ts"],
-		"@tealdeer/databases": ["../../packages/databases/src/index.ts"],
+		"@legors/auth": ["../../packages/auth/src/index.ts"],
+    "@legors/auth/client": ["../../packages/auth/src/client.ts"],
+		"@legors/databases": ["../../packages/databases/src/index.ts"],
 		"@ui/*": ["../../packages/ui/src/*"]
 	}
 	},

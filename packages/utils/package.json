@@ -1,5 +1,5 @@
 {
-	"name": "@tealdeer/utils",
+	"name": "@legors/utils",
 	"version": "0.0.0",
 	"private": true,
 	"main": "./index.ts",
@@ -10,9 +10,9 @@
 	},
 	"devDependencies": {
 		"@hey-api/openapi-ts": "0.88.0",
-		"@tealdeer/tooling-config": "workspace:*"
+		"@legors/tooling-config": "workspace:*"
 	},
-	"prettier": "@tealdeer/tooling-config/prettier.config.mts",
+	"prettier": "@legors/tooling-config/prettier.config.mts",
 	"dependencies": {
 		"axios": "^1.13.2"
 	}

@@ -1,5 +1,5 @@
 {
-  "extends": "@tealdeer/tooling-config/typescript/base.json", 
+  "extends": "@legors/tooling-config/typescript/base.json", 
   "compilerOptions": {
     "composite": true,
     "declaration": true,

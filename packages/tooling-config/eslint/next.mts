@@ -44,7 +44,7 @@ export default [
 	},
 	pluginReact.configs.flat.recommended,
 	{
-		name: 'tealdeer',
+		name: 'legors',
 		languageOptions: {
 			parserOptions: {
 				warnOnUnsupportedTypeScriptVersion: false,

@@ -1,5 +1,5 @@
 {
-  "name": "@tealdeer/auth",
+  "name": "@legors/auth",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -15,7 +15,7 @@
   },
   "packageManager": "pnpm@10.18.3",
   "dependencies": {
-    "@tealdeer/databases": "workspace:*",
+    "@legors/databases": "workspace:*",
     "better-auth": "^1.4.4"
   },
   "devDependencies": {

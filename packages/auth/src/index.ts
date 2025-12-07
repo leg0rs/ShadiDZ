@@ -1,4 +1,4 @@
-import { prisma } from '@tealdeer/databases';
+import { prisma } from '@legors/databases';
 import { betterAuth } from 'better-auth';
 import { prismaAdapter } from 'better-auth/adapters/prisma';
 

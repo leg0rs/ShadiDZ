@@ -21,7 +21,7 @@ import {
 	DropdownMenuTrigger,
 } from '@shadcn/dropdown-menu';
 
-import { authClient } from '@tealdeer/auth/client';
+import { authClient } from '@legors/auth/client';
 import { useRouter } from 'next/navigation';
 import BaseAvatar from '../BaseAvatar';
 

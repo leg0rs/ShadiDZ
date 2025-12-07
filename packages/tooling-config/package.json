@@ -1,5 +1,5 @@
 {
-	"name": "@tealdeer/tooling-config",
+	"name": "@legors/tooling-config",
 	"version": "0.0.0",
 	"private": true,
 	"scripts": {
