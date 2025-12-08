@@ -2,11 +2,12 @@
   "name": "@legors/backend",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "Egor Lemeshev",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
+    "dev": "nest start --watch",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -23,12 +24,16 @@
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/swagger": "^11.2.3",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.1"
+    "@legors/interfaces": "workspace:*",
+    "rxjs": "^7.8.1",
+    "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.18.0",
+    "@legors/tooling-config": "workspace:*",
     "@nestjs/cli": "^11.0.0",
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.1",
