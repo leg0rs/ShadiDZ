@@ -59,5 +59,3 @@ generated
 
 # app testing dir
 app-playground-data/*
-
-docker-compose.yml

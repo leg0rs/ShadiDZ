@@ -1,4 +1,4 @@
-import sharedConfig from '@tealdeer/tooling-config/prettier.config.mts';
+import sharedConfig from '@legors/tooling-config/prettier.config.mts';
 
 /**
  * @type {import("prettier").Config}

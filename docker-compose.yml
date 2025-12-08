@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: legors-db
+    restart: always
+    ports:
+      - "5430:5430" 
+    environment:
+      POSTGRES_USER: legors
+      POSTGRES_PASSWORD: legors
+      POSTGRES_DB: legors
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

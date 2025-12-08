@@ -1,9 +1,8 @@
 {
-  "extends": "@tealdeer/tooling-config/typescript/base.json", 
-  "compilerOptions": {
-
-    "types": ["node"],
-    "composite": true,
-  },
-  "include": ["src/**/*"]
+	"extends": "@legors/tooling-config/typescript/base.json",
+	"compilerOptions": {
+		"types": ["node"],
+		"composite": true
+	},
+	"include": ["src/**/*"]
 }

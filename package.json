@@ -1,11 +1,15 @@
 {
-  "name": "@tealdeer/nextjs-frontend-template",
+  "name": "@legors/nextjs-frontend-template",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "web:dev": "turbo run dev --filter=@tealdeer/frontend",
-    "web:build": "turbo run build --filter=@tealdeer/frontend",
-    "web:fix": "turbo run fix --filter=@tealdeer/frontend",
+    "web:dev": "turbo run dev --filter=@legors/frontend",
+    "web:build": "turbo run build --filter=@legors/frontend",
+    "web:fix": "turbo run fix --filter=@legors/frontend",
+    "bac:dev": "turbo run dev --filter=@legors/backend",
+    "bac:build": "turbo run build --filter=@legors/backend",
+    "bac:fix": "turbo run fix --filter=@legors/backend",
+    "dev": "turbo run dev --continue",
     "build": "turbo run build --continue",
     "lint": "turbo run lint lint:ancillary --continue",
     "lint:ancillary": "prettier --check .github *.*",
@@ -17,7 +21,7 @@
   },
   "packageManager": "pnpm@10.18.3",
   "devDependencies": {
-    "@tealdeer/tooling-config": "workspace:*",
+    "@legors/tooling-config": "workspace:*",
     "eslint": "^9.39.1",
     "prettier": "3.6.2",
     "turbo": "^2.6.1"

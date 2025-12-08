@@ -1,5 +1,5 @@
 {
-	"extends": "@tealdeer/tooling-config/typescript/base.json",
+	"extends": "@legors/tooling-config/typescript/base.json",
 	"compilerOptions": {
 		"jsx": "react-jsx",
 		"baseUrl": ".",
@@ -10,4 +10,3 @@
 	"include": ["src/**/*", "index.ts"],
 	"exclude": ["node_modules"]
 }
-

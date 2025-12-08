@@ -1,6 +1,6 @@
 'use client';
 
-import { authClient } from '@tealdeer/auth/client';
+import { authClient } from '@legors/auth/client';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';

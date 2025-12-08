@@ -44,11 +44,14 @@ export default [
 	},
 	pluginReact.configs.flat.recommended,
 	{
-		name: 'tealdeer',
+		name: 'legors',
 		languageOptions: {
 			parserOptions: {
 				warnOnUnsupportedTypeScriptVersion: false,
 			},
+		},
+		rules: {
+			'react/react-in-jsx-scope': 'off', // Not needed with React 17+ JSX transform
 		},
 	},
 ];

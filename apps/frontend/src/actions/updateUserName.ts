@@ -1,7 +1,8 @@
 'use server';
 
-import GetSession from '@/utils/getsession';
 import { prisma } from '@packages/databases';
+
+import GetSession from '@/utils/getsession';
 
 export async function updateUserNameAction(formData: FormData) {
 	try {

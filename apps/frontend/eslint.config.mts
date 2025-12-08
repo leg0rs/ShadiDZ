@@ -1,4 +1,4 @@
-import config from '@tealdeer/tooling-config/eslint/next.mts';
+import config from '@legors/tooling-config/eslint/next.mts';
 
 const eslintConfig = [
 	...config,

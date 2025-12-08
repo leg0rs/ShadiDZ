@@ -1,8 +1,10 @@
-import GetSession from '@/utils/getsession';
-import getUserIcon from '@/utils/getUserIcon';
 import { ModeToggle } from '@shadcn/mode-toggle';
 import Image from 'next/image';
 import Link from 'next/link';
+
+import GetSession from '@/utils/getsession';
+import getUserIcon from '@/utils/getUserIcon';
+
 import AvatarUser from './avatarUserdropdown';
 const Header = async () => {
 	const session = await GetSession();
@@ -12,8 +14,8 @@ const Header = async () => {
 			<div className="container mx-auto flex h-16 items-center justify-between px-4">
 				<div className="flex items-center gap-6">
 					<Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
-						<Image width={40} height={40} src="/TealDeer.png" alt="Логотип Команды" />
-						<span className="text-xl font-bold text-foreground">TealDeer</span>
+						<Image width={40} height={40} src="/legors.png" alt="Логотип Команды" />
+						<span className="text-xl font-bold text-foreground">legors</span>
 					</Link>
 				</div>
 

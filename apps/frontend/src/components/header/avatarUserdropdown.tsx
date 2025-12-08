@@ -1,5 +1,6 @@
 'use client';
 
+import { authClient } from '@legors/auth/client';
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -11,7 +12,6 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from '@shadcn/alert-dialog';
-
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -20,9 +20,8 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@shadcn/dropdown-menu';
-
-import { authClient } from '@tealdeer/auth/client';
 import { useRouter } from 'next/navigation';
+
 import BaseAvatar from '../BaseAvatar';
 
 export default function AvatarUser({ src }: { src?: string | null }) {

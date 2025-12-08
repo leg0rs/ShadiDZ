@@ -1,6 +1,8 @@
 import '@/styles/globals.css';
-import GetSession from '@/utils/getsession';
+
 import { redirect } from 'next/navigation';
+
+import GetSession from '@/utils/getsession';
 // const geistSans = Geist({
 // 	variable: '--font-geist-sans',
 // 	subsets: ['latin'],

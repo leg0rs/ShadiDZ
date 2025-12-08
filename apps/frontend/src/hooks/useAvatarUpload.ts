@@ -1,7 +1,8 @@
 'use client';
 
-import { uploadAvatarAction } from '@/actions/uploadAvatar';
 import { useRef, useState } from 'react';
+
+import { uploadAvatarAction } from '@/actions/uploadAvatar';
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
