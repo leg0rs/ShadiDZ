@@ -13,7 +13,7 @@ export function ModeToggle() {
 	return (
 		<button
 			onClick={toggleTheme}
-			className="relative hover:bg-accent rounded-md p-2 transition-colors"
+			className="cursor-pointer relative hover:bg-accent rounded-md p-2 transition-colors"
 			type="button"
 		>
 			<Moon className="h-10 w-10 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />

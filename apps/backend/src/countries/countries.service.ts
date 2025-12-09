@@ -20,7 +20,6 @@ export class CountriesService {
 			}
 			return false;
 		});
-		console.log(filteredData);
 		return filteredData.slice(start - 1, end) as unknown as CountryResponseDto[];
 	}
 	async getCountry(code: string): Promise<CountryResponseDto | undefined> {

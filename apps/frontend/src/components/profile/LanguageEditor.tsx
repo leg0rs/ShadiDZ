@@ -55,7 +55,7 @@ export default function LanguageEditor({ currentLanguage }: { currentLanguage: s
 	if (isEditing) {
 		return (
 			<div className="p-6 bg-secondary/50 rounded-xl border border-border/50 shadow-custom-sm transition-all hover:shadow-custom-md hover:border-border">
-				<p className="text-sm text-muted-foreground mb-2">Язык</p>
+				<p className="text-sm text-muted-foreground mb-2">Язык названия стран</p>
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
 						<button
@@ -100,7 +100,7 @@ export default function LanguageEditor({ currentLanguage }: { currentLanguage: s
 
 	return (
 		<div className="p-6 bg-secondary/50 rounded-xl border border-border/50 shadow-custom-sm transition-all hover:shadow-custom-md hover:border-border">
-			<p className="text-sm text-muted-foreground mb-2">Язык</p>
+			<p className="text-sm text-muted-foreground mb-2">Язык названия стран</p>
 			<div className="flex justify-between items-center">
 				<p className="font-semibold text-lg flex items-center gap-2">
 					<span className="text-xl">{currentLang.flag}</span>
