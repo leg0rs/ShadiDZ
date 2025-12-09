@@ -5,7 +5,7 @@ const Loading = () => {
 		<div className="flex justify-center items-center h-screen bg-background">
 			<div className="flex flex-col items-center gap-6">
 				<div className="w-32 h-32 rounded-full overflow-hidden border-4 border-primary shadow-lg animate-bounce">
-					<Image src="/legors.png" alt="Loading" fill className="object-cover" />
+					<Image src="/logo.png" alt="Loading" fill className="object-cover" />
 				</div>
 
 				<div className="flex items-center gap-2">

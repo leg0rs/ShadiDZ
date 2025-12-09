@@ -17,7 +17,7 @@ export class CountriesService {
 	}
 	async getCountry(code: string): Promise<Country | undefined> {
 		const data = await getData();
-		const result = data.find((country: Country) => country.cca3 === code);
+		const result = data.find((country: Country) => country.cca2 === code);
 		if (result) return result;
 		return undefined;
 	}

@@ -6,7 +6,7 @@ services:
     container_name: legors-db
     restart: always
     ports:
-      - "5430:5430" 
+      - "5430:5432" 
     environment:
       POSTGRES_USER: legors
       POSTGRES_PASSWORD: legors

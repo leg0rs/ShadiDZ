@@ -1,5 +1,4 @@
 import Link from 'next/link';
-
 const Footer = () => {
 	const currentYear = new Date().getFullYear();
 
@@ -12,13 +11,13 @@ const Footer = () => {
 					</p>
 					<div className="flex gap-6">
 						<Link
-							href="https://шахофпобеда.рф"
+							href="http://шадипобеда.рф"
 							className="text-sm text-muted-foreground hover:text-foreground transition-colors"
 						>
 							Конфиденциальность
 						</Link>
 						<Link
-							href="https://шахофпобеда.рф"
+							href="http://шадипобеда.рф"
 							className="text-sm text-muted-foreground hover:text-foreground transition-colors"
 						>
 							Условия использования

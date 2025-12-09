@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { AnalyzeData, AnalyzeResponses, HelloData, HelloResponses } from './types.gen';
+import type { CountriesControllerGetCountriesData, CountriesControllerGetCountriesResponses, CountriesControllerGetCountryData, CountriesControllerGetCountryResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -18,14 +18,12 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
     meta?: Record<string, unknown>;
 };
 
-export const hello = <ThrowOnError extends boolean = false>(options?: Options<HelloData, ThrowOnError>) => (options?.client ?? client).get<HelloResponses, unknown, ThrowOnError>({
-    responseType: 'json',
-    url: '/hello',
-    ...options
-});
+/**
+ * Get inforamtion about countries
+ */
+export const countriesControllerGetCountries = <ThrowOnError extends boolean = false>(options: Options<CountriesControllerGetCountriesData, ThrowOnError>) => (options.client ?? client).get<CountriesControllerGetCountriesResponses, unknown, ThrowOnError>({ url: '/countries', ...options });
 
-export const analyze = <ThrowOnError extends boolean = false>(options: Options<AnalyzeData, ThrowOnError>) => (options.client ?? client).get<AnalyzeResponses, unknown, ThrowOnError>({
-    responseType: 'json',
-    url: '/analyze',
-    ...options
-});
+/**
+ * Get information about a specific country
+ */
+export const countriesControllerGetCountry = <ThrowOnError extends boolean = false>(options: Options<CountriesControllerGetCountryData, ThrowOnError>) => (options.client ?? client).get<CountriesControllerGetCountryResponses, unknown, ThrowOnError>({ url: '/countries/{countryId}', ...options });
