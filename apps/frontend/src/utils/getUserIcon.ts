@@ -1,5 +1,4 @@
 import { prisma } from '@packages/databases/src';
-
 import GetSession from './getsession';
 
 export default async function getUserIcon() {

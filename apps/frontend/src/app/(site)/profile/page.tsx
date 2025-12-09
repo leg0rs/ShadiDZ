@@ -6,7 +6,6 @@ import getUserIcon from '@/utils/getUserIcon';
 export default async function Profile() {
 	const session = await GetSession();
 	const icon = session ? await getUserIcon() : null;
-
 	return (
 		<div className="min-h-screen bg-background p-8">
 			<div className="max-w-4xl mx-auto">
