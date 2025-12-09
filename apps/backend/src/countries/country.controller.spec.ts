@@ -1,6 +1,6 @@
+import { Countries } from '@legors/interfaces/country.interface';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { Countries } from '@legors/interfaces/country.interface';
 import { CountriesController } from './countries.controller';
 import { CountriesService } from './countries.service';
 

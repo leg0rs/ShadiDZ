@@ -20,6 +20,14 @@
 						"schema": {
 							"type": "number"
 						}
+					},
+					{
+						"name": "search",
+						"required": true,
+						"in": "query",
+						"schema": {
+							"type": "string"
+						}
 					}
 				],
 				"responses": {
@@ -38,9 +46,7 @@
 					}
 				},
 				"summary": "Get information about countries",
-				"tags": [
-					"Countries"
-				]
+				"tags": ["Countries"]
 			}
 		},
 		"/countries/{countryId}": {
@@ -79,9 +85,7 @@
 					}
 				},
 				"summary": "Get information about a specific country",
-				"tags": [
-					"Countries"
-				]
+				"tags": ["Countries"]
 			}
 		}
 	},
@@ -134,11 +138,7 @@
 						}
 					}
 				},
-				"required": [
-					"common",
-					"official",
-					"native"
-				]
+				"required": ["common", "official", "native"]
 			},
 			"IddDto": {
 				"type": "object",
@@ -149,9 +149,7 @@
 						"description": "International dialing root code"
 					},
 					"suffixes": {
-						"example": [
-							"97"
-						],
+						"example": ["97"],
 						"description": "International dialing suffixes",
 						"type": "array",
 						"items": {
@@ -159,10 +157,7 @@
 						}
 					}
 				},
-				"required": [
-					"root",
-					"suffixes"
-				]
+				"required": ["root", "suffixes"]
 			},
 			"CountryResponseDto": {
 				"type": "object",
@@ -190,9 +185,7 @@
 						]
 					},
 					"tld": {
-						"example": [
-							".aw"
-						],
+						"example": [".aw"],
 						"description": "Top-level domain",
 						"type": "array",
 						"items": {
@@ -264,9 +257,7 @@
 						"description": "International dialing code information",
 						"example": {
 							"root": "+2",
-							"suffixes": [
-								"97"
-							]
+							"suffixes": ["97"]
 						},
 						"allOf": [
 							{
@@ -275,9 +266,7 @@
 						]
 					},
 					"capital": {
-						"example": [
-							"Oranjestad"
-						],
+						"example": ["Oranjestad"],
 						"description": "Capital cities",
 						"type": "array",
 						"items": {
@@ -285,9 +274,7 @@
 						}
 					},
 					"altSpellings": {
-						"example": [
-							"AW"
-						],
+						"example": ["AW"],
 						"description": "Alternative spellings",
 						"type": "array",
 						"items": {
@@ -345,10 +332,7 @@
 						}
 					},
 					"latlng": {
-						"example": [
-							12.5,
-							-69.96666666
-						],
+						"example": [12.5, -69.96666666],
 						"description": "Latitude and longitude coordinates",
 						"type": "array",
 						"items": {

@@ -167,6 +167,7 @@ export type CountriesControllerGetCountriesData = {
     query: {
         start: number;
         end: number;
+        search: string;
     };
     url: '/countries';
 };

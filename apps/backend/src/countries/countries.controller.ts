@@ -1,4 +1,3 @@
-import { Countries, Country } from '@legors/interfaces/country.interface';
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { ApiExtraModels, ApiOkResponse, ApiOperation, getSchemaPath } from '@nestjs/swagger';
 
@@ -19,9 +18,12 @@ export class CountriesController {
 			items: { $ref: getSchemaPath(CountryResponseDto) },
 		},
 	})
-	getCountries(@Query('start') start: number, @Query('end') end: number): Promise<Countries> {
-		console.log(start, end);
-		return this.countriesService.getCountries(start, end);
+	getCountries(
+		@Query('start') start: number,
+		@Query('end') end: number,
+		@Query('search') search: string,
+	): Promise<CountryResponseDto[]> {
+		return this.countriesService.getCountries(start, end, search);
 	}
 
 	@Get(':countryId')
@@ -33,7 +35,7 @@ export class CountriesController {
 			oneOf: [{ $ref: getSchemaPath(CountryResponseDto) }, { type: 'null' }],
 		},
 	})
-	getCountry(@Param('countryId') countryId: string): Promise<Country | undefined> {
+	getCountry(@Param('countryId') countryId: string): Promise<CountryResponseDto | undefined> {
 		return this.countriesService.getCountry(countryId);
 	}
 }

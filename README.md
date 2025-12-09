@@ -1,6 +1,6 @@
 # Frontend Template
 Современный Next.js 16 шаблон с аутентификацией, Prisma ORM и Tailwind CSS.
-
+https://github.com/FloydanTheBeast/hse-lyceum-web-2025/blob/main/homework/final-project-10-1.md
 ![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)

@@ -7,7 +7,7 @@ DTO была проверена и она соотвествует json-схем
 
 import { ApiProperty } from '@nestjs/swagger';
 
-class LanguageNameDto {
+export class LanguageNameDto {
 	@ApiProperty({ example: 'Aruba', description: 'Official name in the language' })
 	official!: string;
 
@@ -15,7 +15,7 @@ class LanguageNameDto {
 	common!: string;
 }
 
-class CountryNameDto {
+export class CountryNameDto {
 	@ApiProperty({ example: 'Aruba', description: 'Common name of the country' })
 	common!: string;
 
@@ -40,7 +40,7 @@ class CountryNameDto {
 	native!: Record<string, LanguageNameDto>;
 }
 
-class CurrencyDto {
+export class CurrencyDto {
 	@ApiProperty({ example: 'Aruban florin', description: 'Currency name' })
 	name!: string;
 
@@ -48,7 +48,7 @@ class CurrencyDto {
 	symbol!: string;
 }
 
-class IddDto {
+export class IddDto {
 	@ApiProperty({ example: '+2', description: 'International dialing root code' })
 	root!: string;
 
@@ -56,7 +56,7 @@ class IddDto {
 	suffixes!: string[];
 }
 
-class TranslationDto {
+export class TranslationDto {
 	@ApiProperty({ example: 'أروبا', description: 'Official translation' })
 	official!: string;
 
@@ -64,7 +64,7 @@ class TranslationDto {
 	common!: string;
 }
 
-class DemonymDto {
+export class DemonymDto {
 	@ApiProperty({ example: 'Aruban', description: 'Female demonym' })
 	f!: string;
 
