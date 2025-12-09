@@ -1,6 +1,5 @@
 'use server';
 
-import { type Countries } from '@legors/interfaces/country.interface';
 import { createClient } from '@packages/utils/src/api/client/index';
 import {
 	countriesControllerGetCountries,
@@ -9,16 +8,16 @@ import {
 import { unstable_cache } from 'next/cache';
 
 const client = createClient({
-	baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8080/v0',
+	baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8080',
 });
 
 const getCachedCountriesData = unstable_cache(
-	async (params: { start: number; end: number }): Promise<Countries> => {
+	async ({ start, end }: { start: number; end: number }) => {
 		const { data } = await countriesControllerGetCountries({
 			client,
-			query: params,
+			query: { start, end },
 		});
-		return data as Countries;
+		return data;
 	},
 	['countries-data-key'],
 	{

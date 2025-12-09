@@ -19,11 +19,19 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
 };
 
 /**
- * Get inforamtion about countries
+ * Get information about countries
  */
-export const countriesControllerGetCountries = <ThrowOnError extends boolean = false>(options: Options<CountriesControllerGetCountriesData, ThrowOnError>) => (options.client ?? client).get<CountriesControllerGetCountriesResponses, unknown, ThrowOnError>({ url: '/countries', ...options });
+export const countriesControllerGetCountries = <ThrowOnError extends boolean = false>(options: Options<CountriesControllerGetCountriesData, ThrowOnError>) => (options.client ?? client).get<CountriesControllerGetCountriesResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/countries',
+    ...options
+});
 
 /**
  * Get information about a specific country
  */
-export const countriesControllerGetCountry = <ThrowOnError extends boolean = false>(options: Options<CountriesControllerGetCountryData, ThrowOnError>) => (options.client ?? client).get<CountriesControllerGetCountryResponses, unknown, ThrowOnError>({ url: '/countries/{countryId}', ...options });
+export const countriesControllerGetCountry = <ThrowOnError extends boolean = false>(options: Options<CountriesControllerGetCountryData, ThrowOnError>) => (options.client ?? client).get<CountriesControllerGetCountryResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    url: '/countries/{countryId}',
+    ...options
+});

@@ -9,6 +9,7 @@
     "bac:dev": "turbo run dev --filter=@legors/backend",
     "bac:build": "turbo run build --filter=@legors/backend",
     "bac:fix": "turbo run fix --filter=@legors/backend",
+    "generate:api": "turbo run generate:api --filter=@legors/utils",
     "dev": "turbo run dev --continue",
     "build": "turbo run build --continue",
     "lint": "turbo run lint lint:ancillary --continue",
