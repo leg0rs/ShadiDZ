@@ -1,4 +1,5 @@
 import UserIcon from '@/components/profile/avatarUserbutton';
+import LanguageEditor from '@/components/profile/LanguageEditor';
 import NameEditor from '@/components/profile/NameEditor';
 import GetSession from '@/utils/getsession';
 import getUserIcon from '@/utils/getUserIcon';
@@ -24,6 +25,7 @@ export default async function Profile() {
 							<p className="text-sm text-muted-foreground mb-2">Email</p>
 							<p className="font-semibold text-lg">{session?.user?.email}</p>
 						</div>
+						<LanguageEditor currentLanguage={session?.user.language || 'ru'} />
 					</div>
 				</div>
 			</div>

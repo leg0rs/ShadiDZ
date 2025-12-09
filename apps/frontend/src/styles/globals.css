@@ -88,7 +88,7 @@
 	--bg-primary: oklch(1 0 0); /* Основной фон страницы (белый) */
 	--text-primary: oklch(0.145 0 0); /* Основной цвет текста (черный) */
 	--bg-secondary: oklch(0.8141 0 0); /* Карточки (cards) */
-	--card-bg: oklch(0.9 0 0); /* Фон карточек (белый) */
+	--card-bg: oklch(0.95 0 0); /* Фон карточек (белый) */
 	--card-text: oklch(0.145 0 0); /* Текст на карточках (черный) */
 	--header-bg: oklch(0.98 0 0); /* Фон header (чуть темнее основного фона) */
 
@@ -234,7 +234,7 @@
 		transition: all 0.2s ease-in-out;
 	}
 	.hover-lift:hover {
-		transform: translateY(-2px);
+		transform: translateY(-3px);
 		box-shadow: var(--shadow-lg);
 	}
 

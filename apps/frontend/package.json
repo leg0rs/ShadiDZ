@@ -15,7 +15,6 @@
 		"@legors/auth": "workspace:*",
 		"@legors/databases": "workspace:*",
 		"@legors/ui": "workspace:*",
-		"@legors/interfaces": "workspace:*",
 		"@legors/utils": "workspace:*",
 		"babel-plugin-react-compiler": "^1.0.0",
 		"better-auth": "^1.4.4",

@@ -1,9 +1,27 @@
+'use client';
+
 import { CountryResponseDto } from '@packages/utils/src/api/types.gen';
-const Card = (props: CountryResponseDto) => {
+
+interface CardProps extends CountryResponseDto {
+	language: string;
+}
+
+const Card = (props: CardProps) => {
+	const { language } = props;
+	let cardText: string | undefined = undefined;
+	console.log(props.translations);
+	if (language === 'ru') {
+		cardText = props.translations.rus.common;
+	} else {
+		cardText = props.name.common;
+	}
+	if (!cardText) {
+		cardText = '—';
+	}
 	return (
-		<div className="bg-card text-card-foreground p-4 rounded-lg m-3 shadow-custom-lg">
+		<div className="bg-card text-card-foreground cursor-pointer p-4 rounded-lg m-3 shadow-custom-lg hover-lift">
 			<header className="flex items-center justify-between">
-				<div className="text-3xl font-bold">{props.name.common}</div>
+				<div className="text-3xl font-bold">{cardText}</div>
 				<div className="text-5xl">{props.flag}</div>
 			</header>
 			<main className="grid grid-cols-2 gap-4 mt-4 border-t-2 border-gray-200 pt-4">

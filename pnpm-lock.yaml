@@ -23,9 +23,6 @@ importers:
 
   apps/backend:
     dependencies:
-      '@legors/interfaces':
-        specifier: workspace:*
-        version: link:../../packages/interfaces
       '@nestjs/common':
         specifier: ^11.0.1
         version: 11.1.9(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -129,9 +126,6 @@ importers:
       '@legors/databases':
         specifier: workspace:*
         version: link:../../packages/databases
-      '@legors/interfaces':
-        specifier: workspace:*
-        version: link:../../packages/interfaces
       '@legors/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -249,16 +243,6 @@ importers:
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
-
-  packages/interfaces:
-    dependencies:
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
-    devDependencies:
-      '@types/node':
-        specifier: ^22.19.1
-        version: 22.19.1
 
   packages/tooling-config:
     devDependencies:

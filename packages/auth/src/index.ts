@@ -16,4 +16,13 @@ export const auth = betterAuth({
 		},
 	},
 	appName: 'frontend',
+	user: {
+		additionalFields: {
+			language: {
+				type: 'string',
+				defaultValue: 'ru',
+				required: true,
+			},
+		},
+	},
 });
