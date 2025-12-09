@@ -129,6 +129,9 @@ importers:
       '@legors/databases':
         specifier: workspace:*
         version: link:../../packages/databases
+      '@legors/interfaces':
+        specifier: workspace:*
+        version: link:../../packages/interfaces
       '@legors/ui':
         specifier: workspace:*
         version: link:../../packages/ui

@@ -28,9 +28,7 @@
 					}
 				},
 				"summary": "Get inforamtion about countries",
-				"tags": [
-					"Countries"
-				]
+				"tags": ["Countries"]
 			}
 		},
 		"/countries/{countryId}": {
@@ -52,9 +50,7 @@
 					}
 				},
 				"summary": "Get information about a specific country",
-				"tags": [
-					"Countries"
-				]
+				"tags": ["Countries"]
 			}
 		}
 	},

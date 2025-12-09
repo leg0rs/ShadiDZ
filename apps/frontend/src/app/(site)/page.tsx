@@ -1,11 +1,17 @@
-import Footer from '@/components/footer/footer';
-import Header from '@/components/header/header';
+'use client';
 
+import { type Countries } from '@legors/interfaces/country.interface';
+import { useState } from 'react';
+
+import { getCountriesAction } from '../actions';
 const Page = () => {
-	return (
-		<div className="">
-		</div>
-	);
+	const [countries, setCountries] = useState<Countries>([]);
+
+	const GetCountries = async () => {
+		const countries = await getCountriesAction(1, 2);
+		setCountries(countries);
+	};
+	return <div className=""></div>;
 };
 
 export default Page;
