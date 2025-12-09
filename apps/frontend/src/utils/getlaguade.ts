@@ -1,6 +1,7 @@
 'use server';
 
 import { prisma } from '@packages/databases';
+
 import GetSession from './getsession';
 
 export default async function getLanguage() {

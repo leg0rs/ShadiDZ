@@ -16,7 +16,7 @@ export async function updateUserLanguageAction(formData: FormData) {
 
 		const language = formData.get('language') as string;
 
-		if (!language || !ALLOWED_LANGUAGES.includes(language as any)) {
+		if (!language || !ALLOWED_LANGUAGES.includes(language as 'ru' | 'en')) {
 			return { success: false, error: 'Неверный язык' };
 		}
 

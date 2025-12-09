@@ -1,12 +1,12 @@
 'use client';
 
 import { CountryResponseDto } from '@packages/utils/src/api/types.gen';
+import { ArrowBigLeft, ArrowBigRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 import Card from '@/components/card';
 import getLanguage from '@/utils/getlaguade';
 
-import { ArrowBigLeft, ArrowBigRight } from 'lucide-react';
 import { getCountriesAction } from '../actions';
 
 type PageProps = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
