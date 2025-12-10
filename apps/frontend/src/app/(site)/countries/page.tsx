@@ -3,6 +3,15 @@
 import { Button } from '@legors/ui/src/components/ui/button';
 import { Input } from '@legors/ui/src/components/ui/input';
 import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectTrigger,
+	SelectValue,
+} from '@legors/ui/src/components/ui/select';
+import {
 	Table,
 	TableBody,
 	TableHead,
@@ -33,9 +42,9 @@ const CountriesPage = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
 	const [needForward, setNeedForward] = useState<boolean>(true);
-	const [viewMode, setViewMode] = useState<'card' | 'list' | 'table'>('card');
+	const [viewMode, setViewMode] = useState<'card' | 'table'>('card');
 	const [loadedPages, setLoadedPages] = useState<number>(1);
-
+	const [sortBy, setSortBy] = useState<string>('None');
 	const GetCountries = async (page: number, append: boolean = false) => {
 		if (append) {
 			setIsLoadingMore(true);
@@ -47,12 +56,14 @@ const CountriesPage = () => {
 			start: 1 + page * 24,
 			end: 24 + page * 24,
 			search,
+			sortBy,
 		});
 
 		const Testcountries = await getCountriesAction({
 			start: 1 + (page + 1) * 24,
 			end: 24 + (page + 1) * 24,
 			search,
+			sortBy,
 		});
 
 		console.log('Testcountries length:', Testcountries);
@@ -124,18 +135,30 @@ const CountriesPage = () => {
 					<Button
 						variant="outline"
 						onClick={() => {
-							const modes: ('card' | 'list' | 'table')[] = ['card', 'list', 'table'];
+							const modes: ('card' | 'table')[] = ['card', 'table'];
 							const currentIndex = modes.indexOf(viewMode);
 							const nextIndex = (currentIndex + 1) % modes.length;
 							setViewMode(modes[nextIndex]);
 						}}
 					>
-						{viewMode === 'card'
-							? '☰ Списком'
-							: viewMode === 'list'
-								? '⊞ Таблицей'
-								: '⊞ Карточками'}
+						{viewMode === 'card' ? 'Таблицами' : 'Карточками'}
 					</Button>
+					<Select value={sortBy} onValueChange={setSortBy}>
+						<SelectTrigger className="w-[180px]">
+							<SelectValue placeholder="Выбирете параметр" />
+						</SelectTrigger>
+						<SelectContent>
+							<SelectGroup>
+								<SelectLabel>Параметры</SelectLabel>
+								<SelectItem value="None">Без параметра</SelectItem>
+								<SelectItem value="PopUP">Население ↑</SelectItem>
+								<SelectItem value="PopDown">Население ↓</SelectItem>
+								<SelectItem value="AreaUP">Площадь ↑</SelectItem>
+								<SelectItem value="AreaDown">Площадь ↓</SelectItem>
+								<SelectItem value="Region">Регион</SelectItem>
+							</SelectGroup>
+						</SelectContent>
+					</Select>
 				</div>
 				{isLoading ? (
 					<div className="flex justify-center items-center min-h-[400px]">

@@ -3,6 +3,7 @@ import { ApiExtraModels, ApiOkResponse, ApiOperation, getSchemaPath } from '@nes
 
 import { CountriesService } from './countries.service';
 import { CountryResponseDto } from './dto/country-response.dto';
+import type SortType from './sortType';
 
 @Controller('/countries')
 @ApiExtraModels(CountryResponseDto)
@@ -22,8 +23,9 @@ export class CountriesController {
 		@Query('start') start: number,
 		@Query('end') end: number,
 		@Query('search') search: string,
+		@Query('sortBy') sortBy: SortType,
 	): Promise<CountryResponseDto[]> {
-		return this.countriesService.getCountries(start, end, search);
+		return this.countriesService.getCountries(start, end, search, sortBy);
 	}
 
 	@Get(':countryId')

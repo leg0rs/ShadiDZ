@@ -49,8 +49,8 @@ const Card = (props: CardProps) => {
 					<div className="text-2xl">{props.population?.toLocaleString() ?? '—'}</div>
 				</div>
 				<div className="min-w-0 text-right">
-					<div className="text-2xl font-bold">Площадь км²</div>
-					<div className="text-2xl">{props.area?.toLocaleString() ?? '—'}</div>
+					<div className="text-2xl font-bold">Площадь</div>
+					<div className="text-2xl">{props.area?.toLocaleString() ?? '—'} км²</div>
 				</div>
 			</main>
 		</div>

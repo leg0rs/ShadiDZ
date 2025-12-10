@@ -168,6 +168,7 @@ export type CountriesControllerGetCountriesData = {
         start: number;
         end: number;
         search: string;
+        sortBy: string;
     };
     url: '/countries';
 };
