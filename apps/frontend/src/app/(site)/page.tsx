@@ -74,7 +74,7 @@ const Page = () => {
 						Назад
 					</button>
 				)}
-				{pages != 10 && (
+				{pages != 10 && countries.length === 24 && (
 					<button
 						className="hover-lift cursor-pointer flex gap-2 m-4 px-4 py-2 bg-primary text-primary-foreground rounded-lg"
 						onClick={() => setPages((prev) => (prev + 1) as PageProps)}
