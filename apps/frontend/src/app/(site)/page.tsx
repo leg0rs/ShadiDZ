@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
 
-const Page = () => {
-	redirect('/countries/0');
+const MainPage = () => {
+	redirect('/countries');
 };
 
-export default Page;
+export default MainPage;

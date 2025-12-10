@@ -1,6 +1,7 @@
 'use client';
 
 import { authClient } from '@legors/auth/client'; // Твой импорт
+import { Button } from '@legors/ui/components';
 import { Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -51,10 +52,11 @@ export default function LoginPage() {
 				</div>
 
 				{/* Кнопка Google */}
-				<button
+				<Button
 					onClick={handleGoogleSignIn}
 					disabled={isLoading}
-					className="w-full flex items-center justify-center gap-3 border border-border p-2.5 rounded-lg hover:bg-accent transition font-medium text-foreground disabled:opacity-50 disabled:cursor-not-allowed"
+					variant="outline"
+					className="w-full flex items-center justify-center gap-3"
 				>
 					<svg viewBox="0 0 24 24" className="w-5 h-5" xmlns="http://www.w3.org/2000/svg">
 						<path
@@ -75,7 +77,7 @@ export default function LoginPage() {
 						/>
 					</svg>
 					Google
-				</button>
+				</Button>
 
 				<div className="flex items-center my-6">
 					<div className="flex-grow border-t border-border"></div>
@@ -109,23 +111,21 @@ export default function LoginPage() {
 							disabled={isLoading}
 							className="w-full border border-input p-3 pr-10 rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent outline-none transition disabled:bg-muted bg-background text-foreground"
 						/>
-						<button
+						<Button
 							type="button"
 							onClick={() => setShowPassword(!showPassword)}
 							disabled={isLoading}
-							className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+							variant="ghost"
+							size="sm"
+							className="absolute right-3 top-1/2 -translate-y-1/2 h-auto p-1 text-muted-foreground hover:text-foreground"
 							aria-label={showPassword ? 'Скрыть пароль' : 'Показать пароль'}
 						>
 							{showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-						</button>
+						</Button>
 					</div>
-					<button
-						onClick={handleEmailSignIn}
-						disabled={isLoading}
-						className="w-full bg-primary text-primary-foreground p-3 rounded-lg hover:opacity-90 transition font-medium disabled:opacity-70 disabled:cursor-not-allowed flex justify-center"
-					>
+					<Button onClick={handleEmailSignIn} disabled={isLoading} className="w-full">
 						{isLoading ? 'Вход...' : 'Войти'}
-					</button>
+					</Button>
 				</div>
 
 				<div className="mt-6 text-center text-sm text-muted-foreground">
