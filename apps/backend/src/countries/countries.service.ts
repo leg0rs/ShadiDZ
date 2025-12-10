@@ -13,6 +13,11 @@ export class CountriesService {
 	async getCountries(start: number, end: number, search: string): Promise<CountryResponseDto[]> {
 		const data = await getData();
 		const filteredData = data.filter((country: CountryResponseDto) => {
+			// Поиск в английском названии
+			if (country.name.common.toLowerCase().includes(search.toLowerCase())) {
+				return true;
+			}
+			// Поиск во всех переводах
 			for (const translation of Object.values(country.translations)) {
 				if (translation.common.toLowerCase().includes(search.toLowerCase())) {
 					return true;
@@ -20,6 +25,7 @@ export class CountriesService {
 			}
 			return false;
 		});
+		// Всегда возвращаем срез, даже если результатов мало
 		return filteredData.slice(start - 1, end) as unknown as CountryResponseDto[];
 	}
 	async getCountry(code: string): Promise<CountryResponseDto | undefined> {

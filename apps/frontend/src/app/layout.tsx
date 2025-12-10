@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="ru en" suppressHydrationWarning>
+		<html lang="ru en" suppressHydrationWarning className="overflow-y-scroll">
 			<body className="antialiased flex flex-col min-h-screen">
 				<ThemeProvider
 					attribute="class"
