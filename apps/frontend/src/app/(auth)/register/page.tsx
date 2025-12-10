@@ -52,7 +52,6 @@ export default function RegisterPage() {
 					<h1 className="text-2xl font-bold text-foreground">Регистрация</h1>
 					<p className="text-muted-foreground text-sm mt-2">Создайте новый аккаунт</p>
 				</div>
-
 				<Button
 					onClick={handleGoogleSignIn}
 					disabled={isLoading}
@@ -80,15 +79,11 @@ export default function RegisterPage() {
 					</svg>
 					Google
 				</Button>
-
 				<div className="flex items-center my-6">
-					<div className="flex-grow border-t border-border"></div>
-					<span className="flex-shrink-0 mx-4 text-muted-foreground text-xs uppercase">
-						или email
-					</span>
-					<div className="flex-grow border-t border-border"></div>
-				</div>
-
+					<div className="grow border-t border-border"></div>
+					<span className="shrink-0 mx-4 text-muted-foreground text-xs uppercase">или email</span>
+					<div className="grow border-t border-border"></div>
+				</div>{' '}
 				<div className="flex flex-col gap-4">
 					{error && (
 						<div className="bg-destructive/10 text-destructive text-sm p-3 rounded-lg border border-destructive/20 text-center">
@@ -137,7 +132,6 @@ export default function RegisterPage() {
 						{isLoading ? 'Создание...' : 'Зарегистрироваться'}
 					</Button>
 				</div>
-
 				<div className="mt-6 text-center text-sm text-muted-foreground">
 					Уже есть аккаунт?{' '}
 					<Link href="/login" className="text-primary font-semibold hover:underline">

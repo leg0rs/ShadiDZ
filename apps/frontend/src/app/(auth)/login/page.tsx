@@ -50,7 +50,6 @@ export default function LoginPage() {
 					<h1 className="text-2xl font-bold text-foreground">С возвращением</h1>
 					<p className="text-muted-foreground text-sm mt-2">Войдите в свой аккаунт</p>
 				</div>
-
 				{/* Кнопка Google */}
 				<Button
 					onClick={handleGoogleSignIn}
@@ -78,15 +77,11 @@ export default function LoginPage() {
 					</svg>
 					Google
 				</Button>
-
 				<div className="flex items-center my-6">
-					<div className="flex-grow border-t border-border"></div>
-					<span className="flex-shrink-0 mx-4 text-muted-foreground text-xs uppercase">
-						или email
-					</span>
-					<div className="flex-grow border-t border-border"></div>
-				</div>
-
+					<div className="grow border-t border-border"></div>
+					<span className="shrink-0 mx-4 text-muted-foreground text-xs uppercase">или email</span>
+					<div className="grow border-t border-border"></div>
+				</div>{' '}
 				<div className="flex flex-col gap-4">
 					{error && (
 						<div className="bg-destructive/10 text-destructive text-sm p-3 rounded-lg border border-destructive/20 text-center">
@@ -127,7 +122,6 @@ export default function LoginPage() {
 						{isLoading ? 'Вход...' : 'Войти'}
 					</Button>
 				</div>
-
 				<div className="mt-6 text-center text-sm text-muted-foreground">
 					Нет аккаунта?{' '}
 					<Link href="/register" className="text-primary font-semibold hover:underline">

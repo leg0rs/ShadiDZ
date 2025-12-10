@@ -26,10 +26,11 @@ describe('CountriesController (e2e)', () => {
 			.get('/countries?start=1&end=1')
 			.expect(200)
 			.expect((res) => {
-				expect(res.body).toBeInstanceOf(Array);
-				expect(res.body.length).toBe(1);
-				expect(res.body[0]).toHaveProperty('cca2', 'AW');
-				expect(res.body[0]).toHaveProperty('cca3', 'ABW');
+				const body = res.body as unknown[];
+				expect(body).toBeInstanceOf(Array);
+				expect(body.length).toBe(1);
+				expect(body[0]).toHaveProperty('cca2', 'AW');
+				expect(body[0]).toHaveProperty('cca3', 'ABW');
 			});
 	});
 });

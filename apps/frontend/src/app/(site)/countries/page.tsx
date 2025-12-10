@@ -20,7 +20,7 @@ import {
 } from '@legors/ui/src/components/ui/table';
 import { CountryResponseDto } from '@legors/utils/src/api/types.gen';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import Card from '@/components/CountryView/card';
 import TableView from '@/components/CountryView/tableview';
@@ -35,7 +35,7 @@ const CountriesPage = () => {
 	const pageParam = params.page as string;
 	const currentPage = parseInt(pageParam) || 0;
 	const searchQuery = searchParams.get('search') || '';
-
+	const pageOneSize = 24; // число должно делаться на 3 и 4
 	const [countries, setCountries] = useState<CountryResponseDto[]>([]);
 	const [search, setSearch] = useState<string>(searchQuery);
 	const [language, setLanguage] = useState<string>('ru');
@@ -45,45 +45,49 @@ const CountriesPage = () => {
 	const [viewMode, setViewMode] = useState<'card' | 'table'>('card');
 	const [loadedPages, setLoadedPages] = useState<number>(1);
 	const [sortBy, setSortBy] = useState<string>('None');
-	const GetCountries = async (page: number, append: boolean = false) => {
-		if (append) {
-			setIsLoadingMore(true);
-		} else {
-			setIsLoading(true);
-		}
 
-		const countries = await getCountriesAction({
-			start: 1 + page * 24,
-			end: 24 + page * 24,
-			search,
-			sortBy,
-		});
-
-		const Testcountries = await getCountriesAction({
-			start: 1 + (page + 1) * 24,
-			end: 24 + (page + 1) * 24,
-			search,
-			sortBy,
-		});
-
-		console.log('Testcountries length:', Testcountries);
-		setNeedForward((Testcountries?.length ?? 0) > 0);
-
-		if (countries) {
+	const GetCountries = useCallback(
+		async (page: number, append: boolean = false) => {
 			if (append) {
-				setCountries((prev) => [...prev, ...countries]);
+				setIsLoadingMore(true);
 			} else {
-				setCountries(countries);
-				setLoadedPages(1);
+				setIsLoading(true);
 			}
-		}
 
-		if (append) {
-			setIsLoadingMore(false);
-		} else {
-			setIsLoading(false);
-		}
-	};
+			const countries = await getCountriesAction({
+				start: 1 + page * pageOneSize,
+				end: pageOneSize + page * pageOneSize,
+				search,
+				sortBy,
+			});
+
+			const Testcountries = await getCountriesAction({
+				start: 1 + (page + 1) * pageOneSize,
+				end: pageOneSize + (page + 1) * pageOneSize,
+				search,
+				sortBy,
+			});
+
+			console.log('Testcountries length:', Testcountries);
+			setNeedForward((Testcountries?.length ?? 0) > 0);
+
+			if (countries) {
+				if (append) {
+					setCountries((prev) => [...prev, ...countries]);
+				} else {
+					setCountries(countries);
+					setLoadedPages(1);
+				}
+			}
+
+			if (append) {
+				setIsLoadingMore(false);
+			} else {
+				setIsLoading(false);
+			}
+		},
+		[search, sortBy],
+	);
 
 	const handleLoadMore = async () => {
 		const nextPage = currentPage + loadedPages;

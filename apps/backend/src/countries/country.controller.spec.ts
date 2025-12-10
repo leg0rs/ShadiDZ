@@ -93,12 +93,14 @@ describe('CountriesController', () => {
 	describe('getCountries', () => {
 		it('should return an array of countries', async () => {
 			const expectedResult = [mockCountries[0]];
-			jest.spyOn(countriesService, 'getCountries').mockResolvedValue(expectedResult);
+			const getCountriesSpy = jest
+				.spyOn(countriesService, 'getCountries')
+				.mockResolvedValue(expectedResult);
 
 			const result = await countriesController.getCountries(1, 1, '', 'None');
 
 			expect(result).toEqual(expectedResult);
-			expect(countriesService.getCountries).toHaveBeenCalledWith(1, 1, '', 'None');
+			expect(getCountriesSpy).toHaveBeenCalledWith(1, 1, '', 'None');
 		});
 	});
 });

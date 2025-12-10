@@ -29,7 +29,7 @@ const Card = (props: CardProps) => {
 				<div className="text-2xl font-bold truncate" title={cardText}>
 					{cardText}
 				</div>
-				<div className="text-5xl flex-shrink-0">{props.flag}</div>
+				<div className="text-5xl shrink-0">{props.flag}</div>
 			</header>
 			<main className="grid grid-cols-2 gap-4 mt-4 border-t-2 border-gray-200 pt-4">
 				<div className="min-w-0 ">
