@@ -59,3 +59,6 @@ generated
 
 # app testing dir
 app-playground-data/*
+
+# Next.js cache
+**/cache
