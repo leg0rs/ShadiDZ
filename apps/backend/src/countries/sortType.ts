@@ -1,2 +1,9 @@
-type SortType = 'None' | 'PopUP' | 'PopDown' | 'AreaUP' | 'AreaDown' | 'Region';
+enum SortType {
+	None = 'None',
+	PopUP = 'PopUP',
+	PopDown = 'PopDown',
+	AreaUP = 'AreaUP',
+	AreaDown = 'AreaDown',
+	Region = 'Region',
+}
 export default SortType;

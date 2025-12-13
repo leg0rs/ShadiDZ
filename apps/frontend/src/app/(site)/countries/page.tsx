@@ -68,8 +68,6 @@ const CountriesPage = () => {
 				search: searchTerm,
 				sortBy,
 			});
-
-			console.log('Testcountries length:', Testcountries);
 			setNeedForward((Testcountries?.length ?? 0) > 0);
 
 			if (countries) {
