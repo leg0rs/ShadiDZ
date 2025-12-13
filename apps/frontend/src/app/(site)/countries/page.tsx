@@ -38,7 +38,7 @@ const CountriesPage = () => {
 	const pageOneSize = 24; // число должно делаться на 3 и 4
 	const [countries, setCountries] = useState<CountryResponseDto[]>([]);
 	const [search, setSearch] = useState<string>(searchQuery);
-	const [language, setLanguage] = useState<string>('ru');
+	const [language, setLanguage] = useState<'ru' | 'en'>('ru');
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
 	const [needForward, setNeedForward] = useState<boolean>(true);

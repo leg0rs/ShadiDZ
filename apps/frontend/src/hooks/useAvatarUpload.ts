@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react';
 
 import { uploadAvatarAction } from '@/actions/uploadAvatar';
+import { logger } from '@/utils/logger';
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
@@ -49,7 +50,7 @@ export function useAvatarUpload(initialSrc?: string | null) {
 			setCurrentSrc(result.imageUrl);
 			window.location.reload();
 		} catch (error) {
-			console.error('Ошибка загрузки аватара:', error);
+			logger.error('Ошибка загрузки аватара:', error);
 			alert(error instanceof Error ? error.message : 'Не удалось загрузить аватар');
 		} finally {
 			setIsUploading(false);

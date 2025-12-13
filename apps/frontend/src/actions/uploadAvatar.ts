@@ -7,6 +7,7 @@ import { unlink, writeFile } from 'fs/promises';
 import path from 'path';
 
 import GetSession from '@/utils/getsession';
+import { logger } from '@/utils/logger';
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const ALLOWED_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
@@ -40,7 +41,15 @@ export async function uploadAvatarAction(formData: FormData) {
 
 		const bytes = await file.arrayBuffer();
 		const buffer = Buffer.from(bytes);
-		const fileExtension = file.name.split('.').pop();
+		const mimeToExt: Record<string, string> = {
+			'image/jpeg': 'jpg',
+			'image/jpg': 'jpg',
+			'image/png': 'png',
+			'image/webp': 'webp',
+			'image/gif': 'gif',
+		};
+
+		const fileExtension = mimeToExt[file.type] || 'jpg';
 		const randomName = randomBytes(16).toString('hex');
 		const fileName = `${randomName}.${fileExtension}`;
 
@@ -56,9 +65,9 @@ export async function uploadAvatarAction(formData: FormData) {
 			if (existsSync(oldFilePath)) {
 				try {
 					await unlink(oldFilePath);
-					console.log('Старая аватарка удалена:', oldFilePath);
+					logger.log('Старая аватарка удалена:', oldFilePath);
 				} catch (error) {
-					console.error('Ошибка удаления старой аватарки:', error);
+					logger.error('Ошибка удаления старой аватарки:', error);
 				}
 			}
 		}
@@ -70,7 +79,7 @@ export async function uploadAvatarAction(formData: FormData) {
 
 		return { success: true, imageUrl };
 	} catch (error) {
-		console.error('Ошибка загрузки аватара:', error);
+		logger.error('Ошибка загрузки аватара:', error);
 		return { success: false, error: 'Ошибка сервера при загрузке файла' };
 	}
 }

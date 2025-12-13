@@ -3,6 +3,7 @@
 import { prisma } from '@packages/databases';
 
 import GetSession from '@/utils/getsession';
+import { logger } from '@/utils/logger';
 
 const ALLOWED_LANGUAGES = ['ru', 'en'] as const;
 
@@ -27,7 +28,7 @@ export async function updateUserLanguageAction(formData: FormData) {
 
 		return { success: true, language };
 	} catch (error) {
-		console.error('Ошибка обновления языка:', error);
+		logger.error('Ошибка обновления языка:', error);
 		return { success: false, error: 'Ошибка сервера при обновлении языка' };
 	}
 }

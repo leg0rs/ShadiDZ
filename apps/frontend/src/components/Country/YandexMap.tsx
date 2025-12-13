@@ -1,5 +1,6 @@
 'use client';
 
+import { logger } from '@/utils/logger';
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 
@@ -20,7 +21,7 @@ export default function YandexMap({ latlong }: { latlong: number[] }) {
 				const ymaps3 = window.ymaps3;
 
 				if (!ymaps3) {
-					console.error('Ymaps3 script not loaded');
+					logger.error('Ymaps3 script not loaded');
 					return;
 				}
 
@@ -33,7 +34,7 @@ export default function YandexMap({ latlong }: { latlong: number[] }) {
 
 				setMapComponents({ YMap, YMapDefaultSchemeLayer, YMapDefaultFeaturesLayer, YMapMarker });
 			} catch (e) {
-				console.error('Не удалось загрузить карты:', e);
+				logger.error('Не удалось загрузить карты:', e);
 			}
 		};
 

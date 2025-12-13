@@ -5,6 +5,13 @@ import { CountriesService } from './countries.service';
 import { CountryResponseDto } from './dto/country-response.dto';
 import type SortType from './sortType';
 
+export class Test {
+	@Get('test')
+	getHealth() {
+		return { status: 'ok', timestamp: new Date().toISOString() };
+	}
+}
+
 @Controller('/countries')
 @ApiExtraModels(CountryResponseDto)
 export class CountriesController {

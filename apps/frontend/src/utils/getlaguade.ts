@@ -9,5 +9,5 @@ export default async function getLanguage() {
 	const user = await prisma.user.findUnique({
 		where: { id: session?.session.userId },
 	});
-	return user?.language || 'ru';
+	return user?.language as 'ru' | 'en';
 }
