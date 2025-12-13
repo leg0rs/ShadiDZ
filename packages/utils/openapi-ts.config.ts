@@ -8,7 +8,7 @@ export default defineConfig({
 		format: 'prettier',
 	},
 	plugins: [
-		'@hey-api/client-axios',
+		'@hey-api/client-fetch',
 		'@hey-api/schemas',
 		'@hey-api/sdk',
 		{
