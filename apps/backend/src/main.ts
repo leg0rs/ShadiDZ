@@ -14,7 +14,10 @@ async function bootstrap() {
 		.setDescription('Legors API description')
 		.setVersion('1.0')
 		.build();
-
+	app.enableCors({
+		origin: 'localhost:3000 legors.com',
+		credentials: true,
+	});
 	const document = SwaggerModule.createDocument(app, config);
 	SwaggerModule.setup('api', app, document, {
 		jsonDocumentUrl: 'api/docs',
