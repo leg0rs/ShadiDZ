@@ -1,11 +1,7 @@
-import Footer from '@/components/footer/footer';
-import Header from '@/components/header/header';
+import { redirect } from 'next/navigation';
 
-const Page = () => {
-	return (
-		<div className="">
-		</div>
-	);
+const MainPage = () => {
+	redirect('/countries');
 };
 
-export default Page;
+export default MainPage;

@@ -19,7 +19,7 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
 };
 
 /**
- * Get inforamtion about countries
+ * Get information about countries
  */
 export const countriesControllerGetCountries = <ThrowOnError extends boolean = false>(options: Options<CountriesControllerGetCountriesData, ThrowOnError>) => (options.client ?? client).get<CountriesControllerGetCountriesResponses, unknown, ThrowOnError>({ url: '/countries', ...options });
 

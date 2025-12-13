@@ -7,6 +7,7 @@
 		"strict": true,
 		"noEmit": true,
 		"esModuleInterop": true,
+		"typeRoots": ["./node_modules/@types", "./node_modules/@yandex/ymaps3-types"],
 		"module": "esnext",
 		"moduleResolution": "bundler",
 		"resolveJsonModule": true,
@@ -20,6 +21,7 @@
 		],
 		"paths": {
 			"@/*": ["./src/*"],
+			"ymaps3": ["./node_modules/@yandex/ymaps3-types"],
 			"@packages/*": ["../../packages/*"],
 			"@shadcn/*": ["../../packages/ui/src/components/ui/*"],
 			"@legors/auth": ["../../packages/auth/src/index.ts"],

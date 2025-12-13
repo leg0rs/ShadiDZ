@@ -10,7 +10,8 @@
 		"fix": "eslint . --fix && prettier --write .",
 		"db:push": "prisma db push",
 		"db:studio": "prisma studio",
-		"db:generate": "prisma generate"
+		"db:generate": "prisma generate",
+		"db:migrate": "prisma migrate dev"
 	},
 	"packageManager": "pnpm@10.18.3",
 	"dependencies": {

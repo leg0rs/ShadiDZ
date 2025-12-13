@@ -1,14 +1,14 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { Countries } from '@legors/interfaces/country.interface';
 import { CountriesController } from './countries.controller';
 import { CountriesService } from './countries.service';
+import { CountryResponseDto } from './dto/country-response.dto';
 
 describe('CountriesController', () => {
 	let countriesController: CountriesController;
 	let countriesService: CountriesService;
 
-	const mockCountries: Countries = [
+	const mockCountries: CountryResponseDto[] = [
 		{
 			name: {
 				common: 'Aruba',
@@ -93,12 +93,15 @@ describe('CountriesController', () => {
 	describe('getCountries', () => {
 		it('should return an array of countries', async () => {
 			const expectedResult = [mockCountries[0]];
-			jest.spyOn(countriesService, 'getCountries').mockResolvedValue(expectedResult);
+			const getCountriesSpy = jest
+				.spyOn(countriesService, 'getCountries')
+				.mockResolvedValue(expectedResult);
 
-			const result = await countriesController.getCountries(1, 1);
+			const query = { start: 1, end: 1, search: '', sortBy: 'None' };
+			const result = await countriesController.getCountries(query);
 
 			expect(result).toEqual(expectedResult);
-			expect(countriesService.getCountries).toHaveBeenCalledWith(1, 1);
+			expect(getCountriesSpy).toHaveBeenCalledWith(1, 1, '', 'None');
 		});
 	});
 });

@@ -74,7 +74,7 @@
 	/* Тени для создания глубины */
 	--shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 	--shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-	--shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+	--shadow-lg: 0 10px 15px -3px rgba(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 	--shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
 	--shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
 	--shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
@@ -87,8 +87,8 @@
 	/* Основные цвета фона и текста */
 	--bg-primary: oklch(1 0 0); /* Основной фон страницы (белый) */
 	--text-primary: oklch(0.145 0 0); /* Основной цвет текста (черный) */
-	--bg-secondary: oklch(0.8141 0 0); /* Карточки (cards) */
-	--card-bg: oklch(1 0 0); /* Фон карточек (белый) */
+	--bg-secondary: oklch(0.87 0 0); /* Карточки (cards) */
+	--card-bg: oklch(0.95 0 0); /* Фон карточек (белый) */
 	--card-text: oklch(0.145 0 0); /* Текст на карточках (черный) */
 	--header-bg: oklch(0.98 0 0); /* Фон header (чуть темнее основного фона) */
 
@@ -112,7 +112,7 @@
 	--error-color: oklch(0.577 0.245 27.325); /* Цвет ошибок и удаления (красный) */
 
 	/* Границы и разделители */
-	--border-color: oklch(0.922 0 0); /* Цвет границ (светло-серый) */
+	--border-color: oklch(0.85 0 0); /* Цвет границ (светло-серый) */
 	--input-border: oklch(0.922 0 0); /* Цвет границ полей ввода (светло-серый) */
 	--focus-ring: oklch(0.708 0 0); /* Цвет обводки при фокусе (серый) */
 
@@ -188,7 +188,7 @@
 	/* Тени для темной темы */
 	--shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.2);
 	--shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
-	--shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+	--shadow-lg: 0 10px 15px -3px rgba(80, 77, 77, 0.6), 0 4px 6px -4px rgb(0 0 0 / 0.5);
 	--shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.5), 0 8px 10px -6px rgb(0 0 0 / 0.5);
 	--shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.6);
 	--shadow-inner: inset 0 2px 4px 0 rgb(0 0 0 / 0.2);
@@ -234,7 +234,7 @@
 		transition: all 0.2s ease-in-out;
 	}
 	.hover-lift:hover {
-		transform: translateY(-2px);
+		transform: translateY(-3px);
 		box-shadow: var(--shadow-lg);
 	}
 

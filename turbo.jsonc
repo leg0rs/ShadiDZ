@@ -62,6 +62,32 @@
 		},
 		"fix:ancillary": {
 			"cache": false
+		},
+		"generate:api": {
+			"cache": false,
+			"inputs": [
+				"$TURBO_DEFAULT$",
+				"openapi.json"
+			],
+			"outputs": [
+				"src/api/**"
+			]
+		},
+		"db:push": {
+			"cache": false
+		},
+		"db:generate": {
+			"cache": false,
+			"outputs": [
+				"node_modules/.pnpm/@prisma+client*/**"
+			]
+		},
+		"db:studio": {
+			"cache": false,
+			"persistent": true
+		},
+		"db:migrate": {
+			"cache": false
 		}
 	}
 }

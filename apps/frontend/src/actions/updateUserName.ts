@@ -3,6 +3,7 @@
 import { prisma } from '@packages/databases';
 
 import GetSession from '@/utils/getsession';
+import { logger } from '@/utils/logger';
 
 export async function updateUserNameAction(formData: FormData) {
 	try {
@@ -29,7 +30,7 @@ export async function updateUserNameAction(formData: FormData) {
 
 		return { success: true, name: name.trim() };
 	} catch (error) {
-		console.error('Ошибка обновления имени:', error);
+		logger.error('Ошибка обновления имени:', error);
 		return { success: false, error: 'Ошибка сервера при обновлении имени' };
 	}
 }

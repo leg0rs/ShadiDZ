@@ -1,6 +1,7 @@
 'use client';
 
 import { authClient } from '@legors/auth/client';
+import { Button } from '@legors/ui/src/components/ui/button';
 import { Eye, EyeOff } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -51,11 +52,11 @@ export default function RegisterPage() {
 					<h1 className="text-2xl font-bold text-foreground">Регистрация</h1>
 					<p className="text-muted-foreground text-sm mt-2">Создайте новый аккаунт</p>
 				</div>
-
-				<button
+				<Button
 					onClick={handleGoogleSignIn}
 					disabled={isLoading}
-					className="w-full flex items-center justify-center gap-3 border border-border p-2.5 rounded-lg hover:bg-accent transition font-medium text-foreground disabled:opacity-50"
+					variant="outline"
+					className="w-full flex items-center justify-center gap-3"
 				>
 					{/* SVG Google (тот же самый) */}
 					<svg viewBox="0 0 24 24" className="w-5 h-5" xmlns="http://www.w3.org/2000/svg">
@@ -77,16 +78,12 @@ export default function RegisterPage() {
 						/>
 					</svg>
 					Google
-				</button>
-
+				</Button>
 				<div className="flex items-center my-6">
-					<div className="flex-grow border-t border-border"></div>
-					<span className="flex-shrink-0 mx-4 text-muted-foreground text-xs uppercase">
-						или email
-					</span>
-					<div className="flex-grow border-t border-border"></div>
-				</div>
-
+					<div className="grow border-t border-border"></div>
+					<span className="shrink-0 mx-4 text-muted-foreground text-xs uppercase">или email</span>
+					<div className="grow border-t border-border"></div>
+				</div>{' '}
 				<div className="flex flex-col gap-4">
 					{error && (
 						<div className="bg-destructive/10 text-destructive text-sm p-3 rounded-lg border border-destructive/20 text-center">
@@ -118,26 +115,23 @@ export default function RegisterPage() {
 							disabled={isLoading}
 							className="w-full border border-input p-3 pr-10 rounded-lg focus:ring-2 focus:ring-ring focus:border-transparent outline-none transition bg-background text-foreground"
 						/>
-						<button
+						<Button
 							type="button"
 							onClick={() => setShowPassword(!showPassword)}
 							disabled={isLoading}
-							className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+							variant="ghost"
+							size="sm"
+							className="absolute right-3 top-1/2 -translate-y-1/2 h-auto p-1 text-muted-foreground hover:text-foreground"
 							aria-label={showPassword ? 'Скрыть пароль' : 'Показать пароль'}
 						>
 							{showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-						</button>
+						</Button>
 					</div>
 
-					<button
-						onClick={handleSignUp}
-						disabled={isLoading}
-						className="w-full bg-primary text-primary-foreground p-3 rounded-lg hover:opacity-90 transition font-medium disabled:opacity-70 flex justify-center"
-					>
+					<Button onClick={handleSignUp} disabled={isLoading} className="w-full">
 						{isLoading ? 'Создание...' : 'Зарегистрироваться'}
-					</button>
+					</Button>
 				</div>
-
 				<div className="mt-6 text-center text-sm text-muted-foreground">
 					Уже есть аккаунт?{' '}
 					<Link href="/login" className="text-primary font-semibold hover:underline">

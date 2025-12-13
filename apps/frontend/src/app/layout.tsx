@@ -2,6 +2,7 @@ import '@/styles/globals.css';
 
 import { ThemeProvider } from '@shadcn/theme-provider';
 import { Metadata } from 'next';
+import Script from 'next/script';
 
 import Footer from '@/components/footer/footer';
 import Header from '@/components/header/header';
@@ -13,8 +14,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="ru en" suppressHydrationWarning>
-			<body className="antialiased flex flex-col min-h-screen">
+		<html lang="ru en" suppressHydrationWarning className="overflow-y-scroll">
+			<body className="antialiased flex flex-col min-h-screen bg-card">
+				<Script
+					src="https://api-maps.yandex.ru/v3/?apikey=3a3e0b4b-0f8c-41dc-9b37-acecd85b8a7d&lang=ru_RU"
+					strategy="beforeInteractive"
+				/>
 				<ThemeProvider
 					attribute="class"
 					defaultTheme="system"
