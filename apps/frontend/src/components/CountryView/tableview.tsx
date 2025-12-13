@@ -1,12 +1,9 @@
 import { TableCell, TableRow } from '@legors/ui/src/components/ui/table';
-import { CountryResponseDto } from '@packages/utils/src/api/types.gen';
 import { redirect } from 'next/navigation';
 
-interface TableProps extends CountryResponseDto {
-	language: string;
-}
+import countryProps from '@/types/countryProps';
 
-const TableView = (props: TableProps) => {
+const TableView = (props: countryProps) => {
 	const { language } = props;
 	let cardText: string | undefined = undefined;
 	if (language === 'ru') {

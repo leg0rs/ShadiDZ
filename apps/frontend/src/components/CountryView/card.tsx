@@ -1,13 +1,9 @@
 'use client';
 
-import { CountryResponseDto } from '@packages/utils/src/api/types.gen';
+import countryProps from '@/types/countryProps';
 import { redirect } from 'next/navigation';
 
-interface CardProps extends CountryResponseDto {
-	language: string;
-}
-
-const Card = (props: CardProps) => {
+const Card = (props: countryProps) => {
 	const { language } = props;
 	let cardText: string | undefined = undefined;
 	if (language === 'ru') {
@@ -20,7 +16,7 @@ const Card = (props: CardProps) => {
 	}
 	return (
 		<div
-			className="bg-card text-card-foreground cursor-pointer p-4 rounded-lg m-3 shadow-custom-lg hover-lift"
+			className="bg-secondary text-card-foreground cursor-pointer p-4 rounded-lg m-3 shadow-custom-lg hover-lift"
 			onClick={() => {
 				redirect(`/country/${props.cca2}`);
 			}}

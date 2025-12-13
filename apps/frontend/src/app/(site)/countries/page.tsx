@@ -20,7 +20,7 @@ import {
 } from '@legors/ui/src/components/ui/table';
 import { CountryResponseDto } from '@legors/utils/src/api/types.gen';
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import Card from '@/components/CountryView/card';
 import TableView from '@/components/CountryView/tableview';
@@ -45,9 +45,10 @@ const CountriesPage = () => {
 	const [viewMode, setViewMode] = useState<'card' | 'table'>('card');
 	const [loadedPages, setLoadedPages] = useState<number>(1);
 	const [sortBy, setSortBy] = useState<string>('None');
+	const debounceTimerRef = useRef<NodeJS.Timeout | null>(null);
 
 	const GetCountries = useCallback(
-		async (page: number, append: boolean = false) => {
+		async (page: number, append: boolean = false, searchTerm: string) => {
 			if (append) {
 				setIsLoadingMore(true);
 			} else {
@@ -57,14 +58,14 @@ const CountriesPage = () => {
 			const countries = await getCountriesAction({
 				start: 1 + page * pageOneSize,
 				end: pageOneSize + page * pageOneSize,
-				search,
+				search: searchTerm,
 				sortBy,
 			});
 
 			const Testcountries = await getCountriesAction({
 				start: 1 + (page + 1) * pageOneSize,
 				end: pageOneSize + (page + 1) * pageOneSize,
-				search,
+				search: searchTerm,
 				sortBy,
 			});
 
@@ -86,12 +87,12 @@ const CountriesPage = () => {
 				setIsLoading(false);
 			}
 		},
-		[search, sortBy],
+		[sortBy],
 	);
 
 	const handleLoadMore = async () => {
 		const nextPage = currentPage + loadedPages;
-		await GetCountries(nextPage, true);
+		await GetCountries(nextPage, true, searchQuery);
 		setLoadedPages((prev) => prev + 1);
 	};
 
@@ -101,21 +102,28 @@ const CountriesPage = () => {
 			setLanguage(lang);
 		};
 		init();
+
+		// Очистка таймера при размонтировании
+		return () => {
+			if (debounceTimerRef.current) {
+				clearTimeout(debounceTimerRef.current);
+			}
+		};
 	}, []);
 
 	useEffect(() => {
 		if (searchQuery !== search) {
 			setSearch(searchQuery);
 		}
-	}, [searchQuery, search]);
+	}, [searchQuery]);
 
 	useEffect(() => {
 		if (currentPage < 0 || currentPage > 10) {
 			router.push('/countries');
 			return;
 		}
-		GetCountries(currentPage);
-	}, [currentPage, search, GetCountries, router]);
+		GetCountries(currentPage, false, searchQuery);
+	}, [currentPage, searchQuery, GetCountries, router]);
 
 	return (
 		<div className="w-full overflow-x-hidden">
@@ -128,12 +136,21 @@ const CountriesPage = () => {
 						onChange={(e) => {
 							const newSearch = e.target.value;
 							setSearch(newSearch);
-							const url = newSearch
-								? `/countries?search=${encodeURIComponent(newSearch)}`
-								: '/countries';
-							if (currentPage !== 0 || searchQuery !== newSearch) {
-								router.push(url);
+
+							// Очищаем предыдущий таймер
+							if (debounceTimerRef.current) {
+								clearTimeout(debounceTimerRef.current);
 							}
+
+							// Устанавливаем новый таймер на 500мс
+							debounceTimerRef.current = setTimeout(() => {
+								const url = newSearch
+									? `/countries?search=${encodeURIComponent(newSearch)}`
+									: '/countries';
+								if (currentPage !== 0 || searchQuery !== newSearch) {
+									router.push(url);
+								}
+							}, 500);
 						}}
 					/>
 					<Button
