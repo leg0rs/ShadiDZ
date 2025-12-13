@@ -25,13 +25,13 @@ function sortData(countries: CountryResponseDto[], sortBy: SortType): CountryRes
 
 @Injectable()
 export class CountriesService {
-	private chachedData: CountryResponseDto[] | null = null;
+	private cachedData: CountryResponseDto[] | null = null;
 	private async getData() {
-		if (!this.chachedData) {
+		if (!this.cachedData) {
 			const data = await readFile(join(__dirname, '..', '..', 'data', 'data.json'), 'utf-8');
-			this.chachedData = JSON.parse(data) as CountryResponseDto[];
+			this.cachedData = JSON.parse(data) as CountryResponseDto[];
 		}
-		return this.chachedData;
+		return this.cachedData;
 	}
 
 	async getCountries(

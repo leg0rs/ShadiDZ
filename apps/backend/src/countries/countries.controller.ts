@@ -3,19 +3,18 @@ import { ApiExtraModels, ApiOkResponse, ApiOperation, getSchemaPath } from '@nes
 
 import { CountriesService } from './countries.service';
 import { CountryResponseDto } from './dto/country-response.dto';
+import { GetCountriesQueryDto } from './dto/GetCountriesQuery.dto';
 import type SortType from './sortType';
-
-export class Test {
-	@Get('test')
-	getHealth() {
-		return { status: 'ok', timestamp: new Date().toISOString() };
-	}
-}
 
 @Controller('/countries')
 @ApiExtraModels(CountryResponseDto)
 export class CountriesController {
 	constructor(private readonly countriesService: CountriesService) {}
+
+	@Get('health')
+	getHealth() {
+		return { status: 'ok', timestamp: new Date().toISOString() };
+	}
 
 	@Get()
 	@ApiOperation({ summary: 'Get information about countries' })
@@ -26,13 +25,13 @@ export class CountriesController {
 			items: { $ref: getSchemaPath(CountryResponseDto) },
 		},
 	})
-	getCountries(
-		@Query('start') start: number,
-		@Query('end') end: number,
-		@Query('search') search: string,
-		@Query('sortBy') sortBy: SortType,
-	): Promise<CountryResponseDto[]> {
-		return this.countriesService.getCountries(start, end, search, sortBy);
+	getCountries(@Query() query: GetCountriesQueryDto): Promise<CountryResponseDto[]> {
+		return this.countriesService.getCountries(
+			query.start,
+			query.end,
+			query.search || '',
+			(query.sortBy as SortType) || 'None',
+		);
 	}
 
 	@Get(':countryId')

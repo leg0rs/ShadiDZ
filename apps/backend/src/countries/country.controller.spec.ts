@@ -3,7 +3,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { CountriesController } from './countries.controller';
 import { CountriesService } from './countries.service';
 import { CountryResponseDto } from './dto/country-response.dto';
-import SortType from './sortType';
 
 describe('CountriesController', () => {
 	let countriesController: CountriesController;
@@ -98,10 +97,11 @@ describe('CountriesController', () => {
 				.spyOn(countriesService, 'getCountries')
 				.mockResolvedValue(expectedResult);
 
-			const result = await countriesController.getCountries(1, 1, '', SortType.None);
+			const query = { start: 1, end: 1, search: '', sortBy: 'None' };
+			const result = await countriesController.getCountries(query);
 
 			expect(result).toEqual(expectedResult);
-			expect(getCountriesSpy).toHaveBeenCalledWith(1, 1, '', SortType.None);
+			expect(getCountriesSpy).toHaveBeenCalledWith(1, 1, '', 'None');
 		});
 	});
 });

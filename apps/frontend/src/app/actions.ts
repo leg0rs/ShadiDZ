@@ -8,25 +8,15 @@ const client = createClient({
 	baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8080',
 });
 
+// Для интерактивных запросов (поиск, сортировка, пагинация) кеш отключен
 export async function getCountriesAction(
 	params: NonNullable<Parameters<typeof sdk.countriesControllerGetCountries>[0]['query']>,
 ) {
-	const cachedFn = unstable_cache(
-		async () => {
-			const { data } = await sdk.countriesControllerGetCountries({
-				client,
-				query: params,
-			});
-			return data;
-		},
-		['countries', JSON.stringify(params)],
-		{
-			revalidate: 60,
-			tags: ['countries'],
-		},
-	);
-
-	return cachedFn();
+	const { data } = await sdk.countriesControllerGetCountries({
+		client,
+		query: params,
+	});
+	return data;
 }
 
 export async function getCountryAction(countryId: string) {
