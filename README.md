@@ -28,7 +28,7 @@
 
 ## 🎥 Видео демо
 <video controls width="720">
-  <source src="docs/2025-12-13-23-15-12_1.mp4" type="video/mp4">
+  <source src="https://github.com/leg0rs/ShadiDZ/blob/master/docs/2025-12-13-23-15-12_1.mp4" type="video/mp4">
   Ваш браузер не поддерживает видео.
 </video>
 
@@ -45,6 +45,7 @@ pnpm install         # требуется pnpm 10.18.3+
 ```bash
 cp apps/frontend/.env.example apps/frontend/.env
 cp packages/databases/.env.example packages/databases/.env
+cp apps/backend/.env.example apps/backend/.env
 ```
 Ключевые значения:
 - `DATABASE_URL` — строка подключения к Postgres (оба .env)

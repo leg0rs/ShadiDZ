@@ -7,7 +7,9 @@ import { CountriesModule } from './countries/country.module';
 async function bootstrap() {
 	const app = await NestFactory.create(CountriesModule);
 
-	app.useGlobalPipes(new ValidationPipe({ transform: true, whitelist: true }));
+	app.useGlobalPipes(
+		new ValidationPipe({ transform: true, whitelist: true, forbidNonWhitelisted: true }),
+	);
 
 	const config = new DocumentBuilder()
 		.setTitle('Legors API')

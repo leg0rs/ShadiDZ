@@ -1,13 +1,25 @@
 {
 	"openapi": "3.0.0",
 	"paths": {
+		"/countries/health": {
+			"get": {
+				"operationId": "CountriesController_getHealth",
+				"parameters": [],
+				"responses": {
+					"200": {
+						"description": ""
+					}
+				},
+				"tags": ["Countries"]
+			}
+		},
 		"/countries": {
 			"get": {
 				"operationId": "CountriesController_getCountries",
 				"parameters": [
 					{
 						"name": "start",
-						"required": true,
+						"required": false,
 						"in": "query",
 						"schema": {
 							"type": "number"
@@ -15,7 +27,7 @@
 					},
 					{
 						"name": "end",
-						"required": true,
+						"required": false,
 						"in": "query",
 						"schema": {
 							"type": "number"
@@ -23,7 +35,7 @@
 					},
 					{
 						"name": "search",
-						"required": true,
+						"required": false,
 						"in": "query",
 						"schema": {
 							"type": "string"
@@ -31,7 +43,7 @@
 					},
 					{
 						"name": "sortBy",
-						"required": true,
+						"required": false,
 						"in": "query",
 						"schema": {
 							"type": "string"
