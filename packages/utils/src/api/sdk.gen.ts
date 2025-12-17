@@ -2,7 +2,7 @@
 
 import type { Client, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { CountriesControllerGetCountriesData, CountriesControllerGetCountriesResponses, CountriesControllerGetCountryData, CountriesControllerGetCountryResponses } from './types.gen';
+import type { CountriesControllerGetCountriesData, CountriesControllerGetCountriesResponses, CountriesControllerGetCountryData, CountriesControllerGetCountryResponses, CountriesControllerGetHealthData, CountriesControllerGetHealthResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -18,10 +18,12 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
     meta?: Record<string, unknown>;
 };
 
+export const countriesControllerGetHealth = <ThrowOnError extends boolean = false>(options?: Options<CountriesControllerGetHealthData, ThrowOnError>) => (options?.client ?? client).get<CountriesControllerGetHealthResponses, unknown, ThrowOnError>({ url: '/countries/health', ...options });
+
 /**
  * Get information about countries
  */
-export const countriesControllerGetCountries = <ThrowOnError extends boolean = false>(options: Options<CountriesControllerGetCountriesData, ThrowOnError>) => (options.client ?? client).get<CountriesControllerGetCountriesResponses, unknown, ThrowOnError>({ url: '/countries', ...options });
+export const countriesControllerGetCountries = <ThrowOnError extends boolean = false>(options?: Options<CountriesControllerGetCountriesData, ThrowOnError>) => (options?.client ?? client).get<CountriesControllerGetCountriesResponses, unknown, ThrowOnError>({ url: '/countries', ...options });
 
 /**
  * Get information about a specific country

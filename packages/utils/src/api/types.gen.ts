@@ -161,14 +161,25 @@ export type CountryResponseDto = {
     population: number;
 };
 
+export type CountriesControllerGetHealthData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/countries/health';
+};
+
+export type CountriesControllerGetHealthResponses = {
+    200: unknown;
+};
+
 export type CountriesControllerGetCountriesData = {
     body?: never;
     path?: never;
-    query: {
-        start: number;
-        end: number;
-        search: string;
-        sortBy: string;
+    query?: {
+        start?: number;
+        end?: number;
+        search?: string;
+        sortBy?: string;
     };
     url: '/countries';
 };
