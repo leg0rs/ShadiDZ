@@ -26,7 +26,6 @@ export class CountriesController {
 		},
 	})
 	getCountries(@Query() query: GetCountriesQueryDto): Promise<CountryResponseDto[]> {
-		console.log(query);
 		return this.countriesService.getCountries(
 			query.start,
 			query.end,

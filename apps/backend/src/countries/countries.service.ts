@@ -42,11 +42,9 @@ export class CountriesService {
 	): Promise<CountryResponseDto[]> {
 		const data = await this.getData();
 		const filteredData = data.filter((country: CountryResponseDto) => {
-			// Поиск в английском названии
 			if (country.name.common.toLowerCase().includes(search.toLowerCase())) {
 				return true;
 			}
-			// Поиск во всех переводах
 			for (const translation of Object.values(country.translations)) {
 				if (translation.common.toLowerCase().includes(search.toLowerCase())) {
 					return true;
@@ -54,7 +52,6 @@ export class CountriesService {
 			}
 			return false;
 		});
-		// Всегда возвращаем срез, даже если результатов мало
 		const sortedData = sortData(filteredData, sortBy);
 		return sortedData.slice(start - 1, end) as unknown as CountryResponseDto[];
 	}

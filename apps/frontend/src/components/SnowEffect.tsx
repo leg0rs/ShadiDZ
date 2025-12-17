@@ -14,8 +14,6 @@ export default function SnowEffect() {
 			const key = event.key.length === 1 ? event.key : event.key[0];
 			setKeyboardEvent((prev) => {
 				const next = prev.length < 4 ? prev + key : prev.slice(1) + key;
-				console.log(`Нажата клавиша: ${event.key}`);
-				console.log('sdf', next);
 				if (next.toLowerCase() === 'snow' || next.toLowerCase() === 'ытщц') {
 					setShowSnow(true);
 				}
