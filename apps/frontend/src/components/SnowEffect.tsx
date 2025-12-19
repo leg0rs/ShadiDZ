@@ -5,9 +5,8 @@ import '@/styles/snow.min.css';
 import { toast } from '@legors/ui';
 import { useEffect, useState } from 'react';
 
-import Snow from '@/utils/Snow.js';
 export default function SnowEffect() {
-	const [keyboardEvent, setKeyboardEvent] = useState<string>('');
+	const [, setKeyboardEvent] = useState<string>('');
 	const [showSnow, setShowSnow] = useState<boolean>(false);
 
 	useEffect(() => {
@@ -40,7 +39,12 @@ export default function SnowEffect() {
 	useEffect(() => {
 		if (typeof window === 'undefined' || !showSnow) return;
 
-		const snowInstance = new (Snow as unknown as { new (): { destroy?: () => void } })();
+		let snowInstance: { destroy?: () => void } | null = null;
+
+		import('@/utils/Snow.js').then((module) => {
+			const Snow = module.default as { new (): { destroy?: () => void } };
+			snowInstance = new Snow();
+		});
 
 		return () => {
 			snowInstance?.destroy?.();
