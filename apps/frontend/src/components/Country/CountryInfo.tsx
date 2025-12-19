@@ -1,10 +1,12 @@
 'use client';
-import getLanguage from '@/utils/getlaguade';
 import { Button } from '@packages/ui/src/components/ui/button';
 import { CountryResponseDto } from '@packages/utils/src/api/types.gen';
 import { ArrowLeft } from 'lucide-react';
 import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
+
+import getLanguage from '@/utils/getlaguade';
+
 import InfoSection from './InfoSection';
 
 const CountryInfo = ({ data }: { data: CountryResponseDto }) => {
@@ -99,10 +101,13 @@ const CountryInfo = ({ data }: { data: CountryResponseDto }) => {
 				{data.currencies && Object.keys(data.currencies).length > 0 && (
 					<InfoSection
 						title="Валюта"
-						items={Object.entries(data.currencies).map(([code, curr]: any) => ({
-							label: curr.name ?? code,
-							value: `${curr.symbol ?? ''} (${code})`,
-						}))}
+						items={Object.entries(data.currencies).map(([code, curr]) => {
+							const currency = curr as { name?: string; symbol?: string };
+							return {
+								label: currency.name ?? code,
+								value: `${currency.symbol ?? ''} (${code})`,
+							};
+						})}
 					/>
 				)}
 
