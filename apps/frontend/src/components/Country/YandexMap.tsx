@@ -39,15 +39,6 @@ const YandexMap = ({ latlong }: YandexMapProps) => {
 						)}
 					</Map>
 				</YMaps>
-
-				{/* {!isLoaded && (
-					<div className="absolute inset-0 flex items-center justify-center bg-[#fafafa] z-1000 pointer-events-none">
-						<div className="flex flex-col items-center gap-3 text-gray-300 animate-pulse">
-							<div className="w-8 h-8 border-2 border-gray-200 border-t-blue-500 rounded-full animate-spin" />
-							<span className="text-sm font-medium">Загрузка карты...</span>
-						</div>
-					</div>
-				)} */}
 			</div>
 		</div>
 	);
