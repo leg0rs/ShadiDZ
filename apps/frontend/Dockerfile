@@ -1,34 +1,60 @@
-FROM node:24-alpine AS builder
+FROM node:20-alpine AS base
 
-ENV DO_NOT_TRACK=1
-RUN corepack enable
-
+# 1. Зависимости
+FROM base AS deps
+RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
-COPY apps/frontend/package.json ./apps/frontend/
-COPY packages/utils/package.json ./packages/utils/
-COPY packages/ui/package.json ./packages/ui/
-COPY packages/tooling-config/package.json ./packages/tooling-config/
+# Включаем corepack для pnpm
+RUN corepack enable
 
+# Копируем конфигурации всех пакетов, чтобы lockfile не ругался
+COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
+COPY apps/backend/package.json ./apps/backend/
+COPY apps/frontend/package.json ./apps/frontend/
+COPY packages/auth/package.json ./packages/auth/
+COPY packages/databases/package.json ./packages/databases/
+COPY packages/tooling-config/package.json ./packages/tooling-config/
+COPY packages/ui/package.json ./packages/ui/
+COPY packages/utils/package.json ./packages/utils/
+
+# Устанавливаем зависимости
 RUN pnpm install --frozen-lockfile
 
+# 2. Сборка
+FROM base AS builder
+RUN corepack enable
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# Отключаем телеметрию Next.js
+ENV NEXT_TELEMETRY_DISABLED=1
+
+# Собираем фронтенд (убедись, что скрипт называется web:build в корневом package.json)
 RUN pnpm web:build
 
-FROM nginx:alpine
+# 3. Продакшн образ
+FROM base AS runner
+WORKDIR /app
 
-# LABEL org.opencontainers.image.source=https://gitlab.prodcontest.com/team-26/frontend
-LABEL org.opencontainers.image.title=frontend
-LABEL org.opencontainers.image.description="Next.js frontend"
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
 
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
 
-COPY --from=builder /app/apps/frontend/out /usr/share/nginx/html
+# Копируем публичные файлы и standalone сборку
+COPY --from=builder /app/apps/frontend/public ./apps/frontend/public
 
-COPY assets/docker/nginx.conf /etc/nginx/conf.d/default.conf
+# Автоматически создается при output: 'standalone'
+COPY --from=builder --chown=nextjs:nodejs /app/apps/frontend/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/apps/frontend/.next/static ./apps/frontend/.next/static
 
+USER nextjs
 
 EXPOSE 3000
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["node", "apps/frontend/server.js"]

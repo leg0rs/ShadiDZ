@@ -15,6 +15,7 @@
 		"@legors/databases": "workspace:*",
 		"@legors/ui": "workspace:*",
 		"@legors/utils": "workspace:*",
+		"@pbe/react-yandex-maps": "^1.2.5",
 		"@prisma/client": "7.0.1",
 		"babel-plugin-react-compiler": "^1.0.0",
 		"better-auth": "^1.4.4",
@@ -34,7 +35,7 @@
 		"@types/pg": "^8",
 		"@types/react": "^19",
 		"@types/react-dom": "^19",
-		"@yandex/ymaps3-types": "^1.0.18255542",
+		"@types/yandex-maps": "^2.1.36",
 		"eslint": "^9",
 		"tailwindcss": "^4",
 		"typescript": "^5"

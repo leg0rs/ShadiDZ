@@ -6,10 +6,10 @@ services:
     container_name: legors-db
     restart: always
     ports:
-      - "5430:5432"
+      - "5430:5432" # Снаружи доступен на 5430
     environment:
       POSTGRES_USER: legors
-      POSTGRES_PASSWORD: legors
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: legors
     volumes:
       - postgres_data:/var/lib/postgresql/data
@@ -17,15 +17,14 @@ services:
       - legors-network
 
   backend:
-    build:
-      context: .
-      dockerfile: apps/backend/Dockerfile
+    image: ghcr.io/${GITHUB_REPOSITORY_OWNER}/shadidz/backend:latest
     container_name: legors-backend
     restart: always
     ports:
       - "8080:8080"
     environment:
-      DATABASE_URL: postgresql://legors:legors@postgres:5432/legors
+      # Обращаемся к сервису postgres внутри сети docker
+      DATABASE_URL: postgresql://legors:${POSTGRES_PASSWORD}@postgres:5432/legors
       NODE_ENV: production
       PORT: 8080
     depends_on:
@@ -34,13 +33,18 @@ services:
       - legors-network
 
   frontend:
-    build:
-      context: .
-      dockerfile: apps/frontend/Dockerfile
+    image: ghcr.io/${GITHUB_REPOSITORY_OWNER}/shadidz/frontend:latest
     container_name: legors-frontend
     restart: always
     environment:
-      NEXT_PUBLIC_API_URL: http://backend:8080
+      # Важные переменные для SSR
+      NEXT_PUBLIC_API_URL: https://legors.ru/api
+      NEXT_PUBLIC_APP_URL: https://legors.ru
+      BETTER_AUTH_URL: https://legors.ru # Внешний URL
+      # Эти секреты должны быть в .env файле на сервере
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
     networks:
       - legors-network
 
