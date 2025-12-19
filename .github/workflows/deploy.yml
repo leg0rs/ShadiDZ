@@ -71,19 +71,18 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT || '22' }} # Если порт нестандартный (22022)
           script: |
+            # Добавляем Docker в PATH (для non-interactive shell)
+            export PATH="/usr/bin:/usr/local/bin:$PATH"
+            
             cd /opt/shadidz
             
             # Логинимся
             echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
             
-            # Обновляем конфиги (если поменялись)
-            # В идеале их тоже лучше копировать через scp, но пока оставим как есть
-            
             # Скачиваем новые образы
             docker compose pull
             
-            # Перезапускаем контейнеры (Zero downtime update для Nginx)
-            # Передаем имя владельца репозитория в нижнем регистре для docker-compose
+            # Перезапускаем контейнеры
             export GITHUB_REPOSITORY_OWNER=${{ env.IMAGE_NAME }}
             export GITHUB_REPOSITORY_OWNER=$(echo $GITHUB_REPOSITORY_OWNER | cut -d'/' -f1)
             
