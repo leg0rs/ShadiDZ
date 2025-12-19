@@ -1,7 +1,8 @@
 'use client';
 
-import countryProps from '@/types/countryProps';
 import { redirect } from 'next/navigation';
+
+import countryProps from '@/types/countryProps';
 
 const Card = (props: countryProps) => {
 	const { language } = props;

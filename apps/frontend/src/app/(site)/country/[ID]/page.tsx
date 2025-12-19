@@ -15,8 +15,8 @@ const CountryPage = async ({ params }: { params: Promise<{ ID: string }> }) => {
 		<div className="flex flex-col">
 			<CountryInfo data={data} />
 			<div className=" justify-items-center mb-10">
-				<p className='text-2xl text-bold'>Страна на Карте</p>
-				<YandexMap latlong={data.latlng.reverse()} />
+				<p className="text-2xl text-bold">Страна на Карте</p>
+				<YandexMap latlong={data.latlng.reverse() as [number, number]} />
 			</div>
 		</div>
 	);

@@ -1,10 +1,11 @@
 'use client';
 
+import '@/styles/snow.min.css';
+
+import { toast } from '@legors/ui';
 import { useEffect, useState } from 'react';
 
-import '@/styles/snow.min.css';
 import Snow from '@/utils/Snow.js';
-import { toast } from '@legors/ui';
 export default function SnowEffect() {
 	const [keyboardEvent, setKeyboardEvent] = useState<string>('');
 	const [showSnow, setShowSnow] = useState<boolean>(false);

@@ -1,5 +1,5 @@
 export const logger = {
-	log: (message: string, ...optionalParams: any[]) => {
+	log: (message: string, ...optionalParams: unknown[]) => {
 		console.log(`[LOG] ${message}`, ...optionalParams);
 	},
 	error: (message: string, error?: unknown) => {
