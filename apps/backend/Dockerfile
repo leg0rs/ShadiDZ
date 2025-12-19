@@ -21,7 +21,7 @@ RUN pnpm install --frozen-lockfile
 COPY . .
 
 # Генерируем клиент Prisma
-RUN DATABASE_URL=postgresql://user:password@localhost:5432/db pnpm db:generate
+RUN cd packages/databases && DATABASE_URL=postgresql://user:password@localhost:5432/db pnpm prisma generate
 
 # Собираем бэкенд
 RUN pnpm bac:build
