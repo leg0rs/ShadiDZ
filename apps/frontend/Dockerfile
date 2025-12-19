@@ -28,10 +28,13 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Отключаем телеметрию Next.js
+# Прокидываем переменные для вшивания в билд (Next.js заберет их сам)
+ARG NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+
+# Отключаем телеметрию
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# Собираем фронтенд (убедись, что скрипт называется web:build в корневом package.json)
 RUN pnpm web:build
 
 # 3. Продакшн образ
