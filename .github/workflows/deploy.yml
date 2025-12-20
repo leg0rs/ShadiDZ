@@ -8,7 +8,6 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  # Используем переменную для имени образа
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
@@ -22,7 +21,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Приводим имя репозитория к нижнему регистру (ВАЖНО!)
       - name: Lowercase repo name
         run: |
           echo "IMAGE_NAME=${GITHUB_REPOSITORY,,}" >> ${GITHUB_ENV}
@@ -55,38 +53,46 @@ jobs:
           context: .
           file: ./apps/frontend/Dockerfile
           push: true
-          # Передаем API URL во время сборки (для Next.js public envs)
           build-args: |
             NEXT_PUBLIC_API_URL=https://legors.ru/api
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/frontend:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      # Деплой на сервер
-      - name: Deploy via SSH
+      # Копирование файлов
+      - name: Copy config files to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          port: ${{ secrets.SSH_PORT }}        # <--- Добавил твой порт
+          key: ${{ secrets.SSH_PRIVATE_KEY }}  # <--- ИСПРАВИЛ НАЗВАНИЕ КЛЮЧА
+          source: "docker-compose.prod.yml,assets/docker/nginx.prod.conf"
+          target: "/opt/shadidz"
+
+      # Деплой
+      - name: Deploy to server
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT || '22' }} # Если порт нестандартный (22022)
+          port: ${{ secrets.SSH_PORT }}        # <--- Добавил твой порт
+          key: ${{ secrets.SSH_PRIVATE_KEY }}  # <--- ИСПРАВИЛ НАЗВАНИЕ КЛЮЧА
           script: |
-            # Добавляем Docker в PATH (для non-interactive shell)
-            export PATH="/usr/bin:/usr/local/bin:$PATH"
-            
             cd /opt/shadidz
             
-            # Логинимся
+            # Перемещаем конфиг Nginx в корень папки
+            if [ -f "assets/docker/nginx.prod.conf" ]; then
+              mv assets/docker/nginx.prod.conf ./nginx.prod.conf
+              rm -rf assets
+            fi
+            
+            # Превращаем имя владельца в нижний регистр
+            export GITHUB_REPOSITORY_OWNER=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')
+            
+            # Логин и обновление
             echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
             
-            # Скачиваем новые образы
-            docker compose pull
-            
-            # Перезапускаем контейнеры
-            export GITHUB_REPOSITORY_OWNER=${{ env.IMAGE_NAME }}
-            export GITHUB_REPOSITORY_OWNER=$(echo $GITHUB_REPOSITORY_OWNER | cut -d'/' -f1)
-            
-            docker compose up -d --remove-orphans
-            
-            # Чистим старое
+            docker compose -f docker-compose.prod.yml pull
+            docker compose -f docker-compose.prod.yml up -d --remove-orphans
             docker image prune -f
