@@ -59,44 +59,40 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-
+      # Копирование файлов
       - name: Copy config files to server
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}        # <--- Добавил твой порт
+          key: ${{ secrets.SSH_PRIVATE_KEY }}  # <--- ИСПРАВИЛ НАЗВАНИЕ КЛЮЧА
           source: "docker-compose.prod.yml,assets/docker/nginx.prod.conf"
           target: "/opt/shadidz"
 
+      # Деплой
       - name: Deploy to server
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}        # <--- Добавил твой порт
+          key: ${{ secrets.SSH_PRIVATE_KEY }}  # <--- ИСПРАВИЛ НАЗВАНИЕ КЛЮЧА
           script: |
             cd /opt/shadidz
             
-            # --- ИСПРАВЛЕНИЕ 3: Перемещаем конфиг Nginx в корень папки ---
-            # scp скопирует его как /opt/shadidz/assets/docker/nginx.prod.conf
-            # Нам нужно вытащить его к docker-compose.prod.yml
-            
-            # Если папка существует (чтобы команда не падала при повторных запусках)
+            # Перемещаем конфиг Nginx в корень папки
             if [ -f "assets/docker/nginx.prod.conf" ]; then
               mv assets/docker/nginx.prod.conf ./nginx.prod.conf
               rm -rf assets
             fi
             
-            # Превращаем имя владельца в нижний регистр для docker image pull
+            # Превращаем имя владельца в нижний регистр
             export GITHUB_REPOSITORY_OWNER=$(echo ${{ github.repository_owner }} | tr '[:upper:]' '[:lower:]')
             
+            # Логин и обновление
             echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
             
-            # ЯВНО указываем файл .prod.yml
             docker compose -f docker-compose.prod.yml pull
-            
-            # Перезапуск
             docker compose -f docker-compose.prod.yml up -d --remove-orphans
-            
             docker image prune -f
