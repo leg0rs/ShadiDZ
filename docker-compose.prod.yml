@@ -1,74 +1,75 @@
-version: '3.8'
+version: "3.8"
 
 services:
   postgres:
     image: postgres:16-alpine
-    container_name: legors-db
     restart: always
-    ports:
-      - "5430:5432" # Снаружи доступен на 5430
     environment:
       POSTGRES_USER: legors
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: legors
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5430:5432" # Снаружи 5430, внутри сети 5432
     networks:
-      - legors-network
+      - app_network
 
   backend:
-    image: ghcr.io/${GITHUB_REPOSITORY_OWNER}/shadidz/backend:latest
-    container_name: legors-backend
+    image: ghcr.io/${GITHUB_REPOSITORY_OWNER}/backend:latest
     restart: always
-    ports:
-      - "8080:8080"
     environment:
-      # Обращаемся к сервису postgres внутри сети docker
-      DATABASE_URL: postgresql://legors:${POSTGRES_PASSWORD}@postgres:5432/legors
+      DATABASE_URL: "postgresql://legors:${POSTGRES_PASSWORD}@postgres:5432/legors"
       NODE_ENV: production
       PORT: 8080
+      FRONTEND_URL: "https://legors.ru"
+    ports:
+      - "8080:8080"
     depends_on:
       - postgres
     networks:
-      - legors-network
+      - app_network
 
   frontend:
-    image: ghcr.io/${GITHUB_REPOSITORY_OWNER}/shadidz/frontend:latest
-    container_name: legors-frontend
+    image: ghcr.io/${GITHUB_REPOSITORY_OWNER}/frontend:latest
     restart: always
     environment:
-      # Важные переменные для SSR
-      NEXT_PUBLIC_API_URL: https://legors.ru/api
-      NEXT_PUBLIC_APP_URL: https://legors.ru
-      BETTER_AUTH_URL: https://legors.ru # Внешний URL
-      # Эти секреты должны быть в .env файле на сервере
+      # Важно: URL для браузера
+      NEXT_PUBLIC_API_URL: "https://legors.ru/api"
+      NEXT_PUBLIC_APP_URL: "https://legors.ru"
+      # Auth
+      BETTER_AUTH_URL: "https://legors.ru"
       BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET}
-      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
-      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      # Внутренняя ссылка для общения сервер-сервер (если нужно)
+      INTERNAL_API_URL: "http://backend:8080"
+    depends_on:
+      - backend
     networks:
-      - legors-network
+      - app_network
 
   nginx:
     image: nginx:alpine
-    container_name: legors-nginx
     restart: always
     ports:
       - "80:80"
       - "443:443"
     volumes:
-      - ./assets/docker/nginx.prod.conf:/etc/nginx/conf.d/default.conf
+      # Конфиг nginx (будет скопирован CI пайплайном в корень папки деплоя)
+      - ./nginx.prod.conf:/etc/nginx/conf.d/default.conf
+      # SSL сертификаты (полученные через certbot на хосте)
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
+      # Второй сайт (ShadiPobeda)
       - /opt/ShadiPobeda:/usr/share/nginx/shadi-pobeda
     depends_on:
       - frontend
       - backend
     networks:
-      - legors-network
-
-networks:
-  legors-network:
-    driver: bridge
+      - app_network
 
 volumes:
   postgres_data:
+
+networks:
+  app_network:
+    driver: bridge
