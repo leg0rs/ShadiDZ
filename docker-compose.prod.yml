@@ -11,12 +11,14 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "5430:5432" # Снаружи 5430, внутри сети 5432
+      - "5430:5432"
     networks:
       - app_network
 
   backend:
-    image: ghcr.io/${GITHUB_REPOSITORY_OWNER}/backend:latest
+    # БЫЛО: image: ghcr.io/${GITHUB_REPOSITORY_OWNER}/backend:latest
+    # СТАЛО (добавили /shadidz):
+    image: ghcr.io/${GITHUB_REPOSITORY_OWNER}/shadidz/backend:latest
     restart: always
     environment:
       DATABASE_URL: "postgresql://legors:${POSTGRES_PASSWORD}@postgres:5432/legors"
@@ -31,16 +33,15 @@ services:
       - app_network
 
   frontend:
-    image: ghcr.io/${GITHUB_REPOSITORY_OWNER}/frontend:latest
+    # БЫЛО: image: ghcr.io/${GITHUB_REPOSITORY_OWNER}/frontend:latest
+    # СТАЛО (добавили /shadidz):
+    image: ghcr.io/${GITHUB_REPOSITORY_OWNER}/shadidz/frontend:latest
     restart: always
     environment:
-      # Важно: URL для браузера
       NEXT_PUBLIC_API_URL: "https://legors.ru/api"
       NEXT_PUBLIC_APP_URL: "https://legors.ru"
-      # Auth
       BETTER_AUTH_URL: "https://legors.ru"
       BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET}
-      # Внутренняя ссылка для общения сервер-сервер (если нужно)
       INTERNAL_API_URL: "http://backend:8080"
     depends_on:
       - backend
@@ -54,12 +55,9 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      # Конфиг nginx (будет скопирован CI пайплайном в корень папки деплоя)
       - ./nginx.prod.conf:/etc/nginx/conf.d/default.conf
-      # SSL сертификаты (полученные через certbot на хосте)
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
-      # Второй сайт (ShadiPobeda)
       - /opt/ShadiPobeda:/usr/share/nginx/shadi-pobeda
     depends_on:
       - frontend
