@@ -59,6 +59,7 @@ services:
       - ./assets/docker/nginx.prod.conf:/etc/nginx/conf.d/default.conf
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
+      - /opt/ShadiPobeda:/usr/share/nginx/shadi-pobeda
     depends_on:
       - frontend
       - backend
