@@ -3,7 +3,7 @@
 import * as sdk from '@packages/utils/src/api/sdk.gen';
 import type { CountriesControllerGetCountriesData } from '@packages/utils/src/api/types.gen';
 
-import { myApiClient } from '../api/congit-client';
+import { myApiClient } from '../api/config-client';
 
 export async function getCountryAction(countryId: string) {
 	const { data } = await sdk.countriesControllerGetCountry({
