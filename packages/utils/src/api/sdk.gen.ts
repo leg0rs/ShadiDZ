@@ -18,14 +18,14 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
     meta?: Record<string, unknown>;
 };
 
-export const countriesControllerGetHealth = <ThrowOnError extends boolean = false>(options?: Options<CountriesControllerGetHealthData, ThrowOnError>) => (options?.client ?? client).get<CountriesControllerGetHealthResponses, unknown, ThrowOnError>({ url: '/countries/health', ...options });
+export const countriesControllerGetHealth = <ThrowOnError extends boolean = false>(options?: Options<CountriesControllerGetHealthData, ThrowOnError>) => (options?.client ?? client).get<CountriesControllerGetHealthResponses, unknown, ThrowOnError>({ url: '/server/countries/health', ...options });
 
 /**
  * Get information about countries
  */
-export const countriesControllerGetCountries = <ThrowOnError extends boolean = false>(options?: Options<CountriesControllerGetCountriesData, ThrowOnError>) => (options?.client ?? client).get<CountriesControllerGetCountriesResponses, unknown, ThrowOnError>({ url: '/countries', ...options });
+export const countriesControllerGetCountries = <ThrowOnError extends boolean = false>(options?: Options<CountriesControllerGetCountriesData, ThrowOnError>) => (options?.client ?? client).get<CountriesControllerGetCountriesResponses, unknown, ThrowOnError>({ url: '/server/countries', ...options });
 
 /**
  * Get information about a specific country
  */
-export const countriesControllerGetCountry = <ThrowOnError extends boolean = false>(options: Options<CountriesControllerGetCountryData, ThrowOnError>) => (options.client ?? client).get<CountriesControllerGetCountryResponses, unknown, ThrowOnError>({ url: '/countries/{countryId}', ...options });
+export const countriesControllerGetCountry = <ThrowOnError extends boolean = false>(options: Options<CountriesControllerGetCountryData, ThrowOnError>) => (options.client ?? client).get<CountriesControllerGetCountryResponses, unknown, ThrowOnError>({ url: '/server/countries/{countryId}', ...options });

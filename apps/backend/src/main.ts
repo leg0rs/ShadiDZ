@@ -6,7 +6,7 @@ import { CountriesModule } from './countries/country.module';
 
 async function bootstrap() {
 	const app = await NestFactory.create(CountriesModule);
-
+	app.setGlobalPrefix('server');
 	app.useGlobalPipes(
 		new ValidationPipe({ transform: true, whitelist: true, forbidNonWhitelisted: true }),
 	);
@@ -20,7 +20,7 @@ async function bootstrap() {
 	app.enableCors({
 		origin: [
 			'http://localhost:3000',
-			'https://legors.com',
+			'https://legors.ru',
 			process.env.FRONTEND_URL || 'http://localhost:3000',
 		],
 		credentials: true,

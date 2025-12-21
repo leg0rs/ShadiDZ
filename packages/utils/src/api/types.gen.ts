@@ -165,7 +165,7 @@ export type CountriesControllerGetHealthData = {
     body?: never;
     path?: never;
     query?: never;
-    url: '/countries/health';
+    url: '/server/countries/health';
 };
 
 export type CountriesControllerGetHealthResponses = {
@@ -181,7 +181,7 @@ export type CountriesControllerGetCountriesData = {
         search?: string;
         sortBy?: string;
     };
-    url: '/countries';
+    url: '/server/countries';
 };
 
 export type CountriesControllerGetCountriesResponses = {
@@ -199,7 +199,7 @@ export type CountriesControllerGetCountryData = {
         countryId: string;
     };
     query?: never;
-    url: '/countries/{countryId}';
+    url: '/server/countries/{countryId}';
 };
 
 export type CountriesControllerGetCountryResponses = {
