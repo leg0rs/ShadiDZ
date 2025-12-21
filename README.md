@@ -1,4 +1,5 @@
 # Country APP
+
 Приложение для поиска и просмотра стран: поиск, сортировка, пагинация и детальная карточка (Имееться говнокод, много, ___очень много___)
 
 ![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js&logoColor=white)
@@ -12,6 +13,7 @@
 ![Turborepo](https://img.shields.io/badge/Turborepo-EF4444?style=for-the-badge&logo=turborepo&logoColor=white)
 
 ## 🔎 Что внутри
+
 - Монорепо: Turborepo + pnpm workspaces (frontend, backend, shared packages)
 - Функционал: поиск, сортировка, пагинация, детальная карточка страны
 - Auth: Better-auth (email/password + Google OAuth)
@@ -20,6 +22,7 @@
 - API-клиент: сгенерированный OpenAPI в `packages/utils`
 
 ## 🖥️ Бэкенд (NestJS)
+
 - Стек: NestJS 11 + Swagger
 - Роуты: `GET /countries?start=&end=&search=&sortBy=`, `GET /countries/:countryId`, `GET /countries/health`
 - Валидация: `class-validator` + `ValidationPipe (transform, whitelist)`
@@ -27,13 +30,14 @@
 - Swagger: `/api` (UI), `/api/docs` (JSON)
 
 ## 🎥 Видео демо
+
 <video controls width="720">
   <source src="https://github.com/leg0rs/ShadiDZ/blob/master/docs/2025-12-13-23-15-12_1.mp4" type="video/mp4">
   Ваш браузер не поддерживает видео.
 </video>
 
-
 ## 🚀 Быстрый старт
+
 ```bash
 git clone <url-репозитория>
 cd ShadiDZ
@@ -41,13 +45,17 @@ pnpm install         # требуется pnpm 10.18.3+
 ```
 
 ### Переменные окружения
+
 Скопируйте примеры и заполните:
+
 ```bash
 cp apps/frontend/.env.example apps/frontend/.env
 cp packages/databases/.env.example packages/databases/.env
 cp apps/backend/.env.example apps/backend/.env
 ```
+
 Ключевые значения:
+
 - `DATABASE_URL` — строка подключения к Postgres (оба .env)
 - `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL` — секрет и базовый URL auth
 - `NEXT_PUBLIC_APP_URL` — публичный URL фронта
@@ -55,6 +63,7 @@ cp apps/backend/.env.example apps/backend/.env
 - `GOOGLE_CLIENT_ID/SECRET` — для OAuth
 
 ### Подготовка БД
+
 ```bash
 cd packages/databases
 pnpm db:push
@@ -62,15 +71,18 @@ pnpm db:generate
 ```
 
 ### Запуск
+
 ```bash
 # фронтенд (Next.js)
 pnpm web:dev
 # бэкенд (NestJS)
 pnpm bac:dev
 ```
-Откройте http://localhost:3000
+
+Откройте <http://localhost:3000>
 
 ## 📁 Структура
+
 ```
 apps/
   frontend/          # Next.js приложение
@@ -83,6 +95,7 @@ packages/
 ```
 
 ## 🛠 Полезные команды
+
 ```bash
 pnpm web:dev     # фронт dev
 pnpm web:build   # фронт build
@@ -92,6 +105,9 @@ pnpm fix         # автофикс линтера
 ```
 
 ## 🔑 Google OAuth (опционально)
+
 1) Создайте OAuth2 в Google Cloud Console
 2) Redirect URI: `http://localhost:3000/api/auth/callback/google`
 3) Заполните `GOOGLE_CLIENT_ID/SECRET` в `apps/frontend/.env`
+
+P.S я ненавижу деплой...

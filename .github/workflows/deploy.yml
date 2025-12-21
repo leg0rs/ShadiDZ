@@ -78,6 +78,8 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           port: ${{ secrets.SSH_PORT }}        # <--- Добавил твой порт
           key: ${{ secrets.SSH_PRIVATE_KEY }}  # <--- ИСПРАВИЛ НАЗВАНИЕ КЛЮЧА
+          timeout: 30m
+          command_timeout: 30m
           script: |
             cd /opt/shadidz
             
