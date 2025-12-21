@@ -48,6 +48,8 @@ services:
       BETTER_AUTH_TRUST_HOST: "true"
       BETTER_AUTH_TRUSTED_ORIGINS: "https://legors.ru" 
       INTERNAL_API_URL: "http://backend:8080"
+    volumes:
+      - ./uploads:/app/apps/frontend/public/uploads
     depends_on:
       - backend
     networks:
@@ -64,6 +66,8 @@ services:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
       - /opt/ShadiPobeda:/usr/share/nginx/shadi-pobeda
+
+      - ./uploads:/app/apps/frontend/public/uploads
     depends_on:
       - frontend
       - backend
