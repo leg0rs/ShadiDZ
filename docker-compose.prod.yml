@@ -38,6 +38,7 @@ services:
     image: ghcr.io/${GITHUB_REPOSITORY_OWNER}/shadidz/frontend:latest
     restart: always
     environment:
+      DATABASE_URL: "postgresql://legors:${POSTGRES_PASSWORD}@postgres:5432/legors"
       NEXT_PUBLIC_API_URL: "https://legors.ru"
       NEXT_PUBLIC_APP_URL: "https://legors.ru"
       BETTER_AUTH_URL: "https://legors.ru"
